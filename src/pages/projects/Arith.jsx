@@ -311,105 +311,319 @@ export const Arith = () => {
                       error reflects the difference between the original and 
                       reconstructed PPM images and is expected due to the 
                       lossy steps in our algorithm, such as trimming and 
-                      averaging the Pb and Pr values within 2x2 pixel blocks. Below are some of our tests. Enjoy the madness!
+                      averaging the Pb/Pr values within 2x2 pixel blocks. Below are some of our tests. Enjoy the madness!
                     </p>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 auto-rows-[1fr] items-stretch">
 
-                      {/* Left side - Block test */}
-                      <div className="space-y-4 gradient-border-alt p-4">
-                        <h3 className="text-xl font-semibold mb-4">Split Block Test</h3>
-                        <div className="space-y-2">
-                          {/* Images and arrow row */}
-                          <div className="flex items-center justify-center gap-6 flex-wrap">
-                            <img
-                              src="/projects/arith/split-block-orig-and-out.webp"
-                              alt="arith-split-block-out"
-                              className="w-32 h-32 object-cover rounded-sm"
-                            />
+                      {/* Left side - Arrow test */}
+                      <div className= "flex flex-col gap-4 h-full gradient-border-alt">
+                        <div className="space-y-4  p-4 h-full flex flex-col">
+                          <h3 className="text-xl font-semibold mb-4">Split Block Test</h3>
+                          <div className="space-y-2">
+                            {/* Images and arrow row */}
+                            <div className="flex items-center justify-center gap-6 flex-wrap">
+                              <img
+                                src="/projects/arith/split-block-orig-and-out.webp"
+                                alt="arith-split-block-out"
+                                className="w-32 h-32 object-cover rounded-sm"
+                              />
+                              
+                              <MoveRight className="w-6 h-6 text-muted-foreground" />
+                              
+                              <img
+                                src="/projects/arith/split-block-orig-and-out.webp"
+                                alt="arith-split-block-out"
+                                className="w-32 h-32 object-cover rounded-sm"
+                              />
+                            </div>
                             
-                            <MoveRight className="w-6 h-6 text-muted-foreground" />
-                            
-                            <img
-                              src="/projects/arith/split-block-orig-and-out.webp"
-                              alt="arith-split-block-out"
-                              className="w-32 h-32 object-cover rounded-sm"
-                            />
-                          </div>
+                            {/* Labels row */}
+                            <div className="flex justify-center gap-6 flex-wrap">
+                              <div className="w-32 text-center">
+                                <h4 className="font-medium text-sm">Original</h4>
+                              </div>
+                              
+                              <div className="w-6"></div> {/* Spacer to match arrow width */}
+                              
+                              <div className="w-32 text-center">
+                                <h4 className="font-medium text-sm">After compression</h4>
+                              </div>
+                            </div>
+                            </div>
+          
+                            <div>
                           
-                          {/* Labels row */}
-                          <div className="flex justify-center gap-6 flex-wrap">
-                            <div className="w-32 text-center">
-                              <h4 className="font-medium text-sm">Original</h4>
-                            </div>
-                            
-                            <div className="w-6"></div> {/* Spacer to match arrow width */}
-                            
-                            <div className="w-32 text-center">
-                              <h4 className="font-medium text-sm">After compression</h4>
-                            </div>
+                            <p className="text-muted-foreground text-sm text-left">                   
+                              The first test used a simple black-and-white 2 x 2 PPM file. Since both black and white have neutral 
+                              Pb/Pr values, averaging across the block does not introduce chroma 
+                              distortion, and the DCT preserves the Y differences, so the results 
+                              are expected to match the original.
+                            </p>
                           </div>
                         </div>
-      
-                        <div>
+
+                        <div className="space-y-4 gradient-border-alt p-4 h-full flex flex-col">
+                          <h3 className="text-xl font-semibold mb-4">Arrow Test</h3>
+                          <div className="space-y-2">
+                            {/* Images and arrow row */}
+                            <div className="flex items-center justify-center gap-6 flex-wrap">
+                              <img
+                                src="/projects/arith/arrow-orig.webp"
+                                alt="arrow-orig"
+                                className="w-20 h-34 object-cover rounded-sm"
+                              />
+
+                              <MoveRight className="w-6 h-6 text-muted-foreground" />
+
+                              <img
+                                src="/projects/arith/arrow-1.webp"
+                                alt="arrow-1"
+                                className="w-20 h-34 object-cover rounded-sm"
+                              />
+                              
+                              <MoveRight className="w-6 h-6 text-muted-foreground" />
+                              
+                              <img
+                                src="/projects/arith/arrow-2.webp"
+                                alt="arrow-2"
+                                className="w-20 h-34 object-cover rounded-sm"
+                              />
+                            </div>
+                            
+                            {/* Labels row */}
+                            <div className="flex justify-center gap-6 flex-wrap">
+                              <div className="w-20 text-center">
+                                <h4 className="font-medium text-sm">Original</h4>
+                              </div>
+                              
+                              <div className="w-6"></div> {/* Spacer to match arrow width */}
+
+                              <div className="w-20 text-center">
+                                <h4 className="font-medium text-sm">P1</h4>
+                              </div>
+
+                                <div className="w-6"></div> {/* Spacer to match arrow width */}
+                                
+                              <div className="w-20 text-center">
+                                <h4 className="font-medium text-sm">P2</h4>
+                              </div>
+                            </div>
+                            </div>
+          
+                            <div>
+                          
+                            <p className="text-muted-foreground text-sm text-left">                   
+                              This test used a 10 x 17 red arrow, chosen to evaluate 
+                              PPM file trimming on an object symmetrical along the 
+                              Y-axis but asymmetrical along the X-axis. The corrupted 
+                              outputs P1 and P2 revealed bugs in the block compression steps.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Right side - Block Color test */}
+                      <div className= "flex flex-col gap-4 h-full gradient-border-alt">
+                        <div className="space-y-4  p-4 h-full flex flex-col">
+                          <h3 className="text-xl font-semibold mb-4">Block Color Test</h3>
+                          <div className="space-y-2">
+                            {/* Images and arrow row */}
+                            <div className="flex items-center justify-center gap-6 flex-wrap">
+                              <img
+                                src="/projects/arith/arith-block-orig.webp"
+                                alt="arith-block-orig"
+                                className="w-32 h-32 object-cover rounded-sm"
+                              />
+                              
+                              <MoveRight className="w-6 h-6 text-muted-foreground" />
+                              
+                              <img
+                                src="/projects/arith/arith-block-1.webp"
+                                alt="arith-block-1"
+                                className="w-32 h-32 object-cover rounded-sm"
+                              />
+                            </div>
+                            
+                            {/* Labels row */}
+                            <div className="flex justify-center gap-6 flex-wrap">
+                              <div className="w-32 text-center">
+                                <h4 className="font-medium text-sm">Original</h4>
+                              </div>
+                              
+                              <div className="w-6"></div> {/* Spacer to match arrow width */}
+                              
+                              <div className="w-32 text-center">
+                                <h4 className="font-medium text-sm">After compression</h4>
+                              </div>
+                            </div>
+                            </div>
+          
+                            <div>
+                          
+                            <p className="text-muted-foreground text-sm text-left">                   
+                              The second test used a simple 2 x 2 PPM file with basic colors. The 
+                              grayscale-like result is expected, as averaging the Pb/Pr 
+                              values across the block reduces the chroma information.
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="space-y-4 gradient-border-alt p-4 h-full flex flex-col">
+                          <h3 className="text-xl font-semibold mb-4">Split Arrow Test</h3>
+                          <div className="space-y-2">
+                            {/* Images and arrow row */}
+                            <div className="flex items-center justify-center gap-6 flex-wrap">
+                              <img
+                                src="/projects/arith/split-arrow-orig.webp"
+                                alt="split-arrow-orig"
+                                className="w-20 h-34 object-cover rounded-sm"
+                              />
+
+                              <MoveRight className="w-6 h-6 text-muted-foreground" />
+
+                              <img
+                                src="/projects/arith/split-arrow-1.webp"
+                                alt="split-arrow-1"
+                                className="w-20 h-34 object-cover rounded-sm"
+                              />
+
+                              <MoveRight className="w-6 h-6 text-muted-foreground" />
+
+                              <img
+                                src="/projects/arith/split-arrow-2.webp"
+                                alt="split-arrow-2"
+                                className="w-20 h-34 object-cover rounded-sm"
+                              />
+                              
+                              <MoveRight className="w-6 h-6 text-muted-foreground" />
+                              
+                              <img
+                                src="/projects/arith/split-arrow-correct.webp"
+                                alt="split-arrow-correct"
+                                className="w-20 h-34 object-cover rounded-sm"
+                              />
+                            </div>
+                            
+                            {/* Labels row */}
+                            <div className="flex justify-center gap-6 flex-wrap">
+                              <div className="w-20 text-center">
+                                <h4 className="font-medium text-sm">Original</h4>
+                              </div>
+                              
+                              <div className="w-6"></div> {/* Spacer to match arrow width */}
+
+                              <div className="w-20 text-center">
+                                <h4 className="font-medium text-sm">P1</h4>
+                              </div>
+                              
+                              <div className="w-6"></div> {/* Spacer to match arrow width */}
+
+                              <div className="w-20 text-center">
+                                <h4 className="font-medium text-sm">P2</h4>
+                              </div>
+
+                                <div className="w-6"></div> {/* Spacer to match arrow width */}
+                                
+                              <div className="w-20 text-center">
+                                <h4 className="font-medium text-sm">P3</h4>
+                              </div>
+                            </div>
+                          </div>
+          
+                            <div>
+                          
+                            <p className="text-muted-foreground text-sm text-left">                   
+                              This test used a 10 x 17 multi-colored arrow (RGB), similar 
+                              to the <strong>Arrow Test</strong> but with different colors, to test Pb/Pr averaging in 2 x 2 blocks. 
+                              The corrupted outputs P1 and P2 revealed bugs in the block compression steps and P3 is a final correct output.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
                       
-                        <p className="text-muted-foreground text-sm text-left">                   
-                          The first test used a simple black-and-white 2 x 2 PPM file. Since both black and white have neutral 
-                          Pb and Pr values, averaging across the block does not introduce chroma 
-                          distortion, and the DCT preserves the Y differences, so the results 
-                          are expected to match the original.
-                        </p>
-                      </div>
-                      </div>
-
-                      {/* Right side - Block test */}
-                      <div className="space-y-4 gradient-border-alt p-4">
-                        <h3 className="text-xl font-semibold mb-4">Block Color Test</h3>
-                        <div className="space-y-2">
-                          {/* Images and arrow row */}
-                          <div className="flex items-center justify-center gap-6 flex-wrap">
-                            <img
-                              src="/projects/arith/arith-block-orig.webp"
-                              alt="arith-block-original"
-                              className="w-32 h-32 object-cover rounded-sm"
-                            />
-                            
-                            <MoveRight className="w-6 h-6 text-muted-foreground" />
-                            
-                            <img
-                              src="/projects/arith/arith-block-1.webp"
-                              alt="arith-block-1"
-                              className="w-32 h-32 object-cover rounded-sm"
-                            />
-                          </div>
-                          
-                          {/* Labels row */}
-                          <div className="flex justify-center gap-6 flex-wrap">
-                            <div className="w-32 text-center">
-                              <h4 className="font-medium text-sm">Original</h4>
-                            </div>
-                            
-                            <div className="w-6"></div> {/* Spacer to match arrow width */}
-                            
-                            <div className="w-32 text-center">
-                              <h4 className="font-medium text-sm">After compression</h4>
-                            </div>
-                          </div>
-                        </div>
-      
-                        <div>
-                          <p className="text-muted-foreground text-sm text-left">
-                            The second test used a simple 2 x 2 PPM file with basic colors. The 
-                            grayscale-like result is expected, as averaging the Pb and Pr 
-                            values across the block reduces the chroma information.
-                          </p>
-                        </div>
-                      </div>
+                      
+                      
+                      
                     </div>
-                                    
-                  
+
+                    <div className= "flex flex-col gap-4 h-full gradient-border-alt">
+                        <div className="space-y-4  p-4 h-full flex flex-col">
+                          <h3 className="text-xl font-semibold mb-4">Flower Test</h3>
+                          <div className="space-y-2">
+                            {/* Images and arrow row */}
+                            <div className="flex items-center justify-center gap-6 flex-wrap">
+                              <img
+                                src="/projects/arith/arith-flower-orig.webp"
+                                alt="arith-flower-orig"
+                                className="w-50 h-27 object-cover rounded-sm"
+                              />
+                              
+                              <MoveRight className="w-6 h-6 text-muted-foreground" />
+                              
+                              <img
+                                src="/projects/arith/arith-flower-wrong.webp"
+                                alt="arith-flower-wrong"
+                                className="w-50 h-27 object-cover rounded-sm"
+                              />
+
+                              <MoveRight className="w-6 h-6 text-muted-foreground" />
+                              
+                              <img
+                                src="/projects/arith/arith-flower-wrong2.webp"
+                                alt="arith-flower-wrong2"
+                                className="w-50 h-27 object-cover rounded-sm"
+                              />
+
+                              <MoveRight className="w-6 h-6 text-muted-foreground" />
+                              
+                              <img
+                                src="/projects/arith/arith-flower-correct.webp"
+                                alt="arith-flower-correct"
+                                className="w-50 h-27 object-cover rounded-sm"
+                              />
+                            </div>
+                            
+                            {/* Labels row */}
+                            <div className="flex justify-center gap-6 flex-wrap">
+                              <div className="w-50 text-center">
+                                <h4 className="font-medium text-sm">Original</h4>
+                              </div>
+                              
+                              <div className="w-6"></div> {/* Spacer to match arrow width */}
+
+                              <div className="w-50 text-center">
+                                <h4 className="font-medium text-sm">P1</h4>
+                              </div>
+                              
+                              <div className="w-6"></div> {/* Spacer to match arrow width */}
+
+                              <div className="w-50 text-center">
+                                <h4 className="font-medium text-sm">P2</h4>
+                              </div>
+                              
+                              <div className="w-6"></div> {/* Spacer to match arrow width */}
+                              
+                              <div className="w-50 text-center">
+                                <h4 className="font-medium text-sm">Final</h4>
+                              </div>
+                            </div>
+                            </div>
+          
+                            <div>
+                          
+                            <p className="text-muted-foreground text-sm text-left">                   
+                              The image above is one of the final testing PPM files. 
+                              The series consists of four images (including the original), 
+                              each representing a successive round of improvement.
+                              One images was excluded as it looked nearly identical to P2. 
+                              This file was used in the project's evaluation, 
+                              and the resulting final output had a 2.54% error.
+                            </p>
+                          </div>
+                        </div>
+                      </div>                
                   </div>
-                
                 </div>
         </div>
       </section>
