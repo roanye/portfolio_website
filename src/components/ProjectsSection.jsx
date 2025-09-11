@@ -45,7 +45,7 @@ export const ProjectsSection = () => {
                                                                 <img src={project.image} alt={project.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"/>
                                                         </div>
                                                         <div className="p-6">
-                                                                <div className="flex flex-warp gap-2 mb-4">
+                                                                <div className="flex flex-wrap gap-2 mb-4">
                                                                         {project.tags.map((tag) => (
                                                                                 <span className="px-2 py-1 border text-xs font-medium rounded-full bg-secondary text-secondary-foreground">{tag}</span>
 
@@ -56,7 +56,7 @@ export const ProjectsSection = () => {
 
                                                                 <div className="flex justify-center items-center">
                                                                         <Link
-                                                                         to="/projects/arith"
+                                                                         to={`/projects/${project.title.toLowerCase()}`}
                                                                          className="flex items-center space-x-2 text-foreground/80 cosmic-button"
                                                                         >
                                                                         <LinkIcon size={20} />
