@@ -1,7 +1,7 @@
 import { StarBackground } from "@/components/StarBackground";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import Magnifier from "react-magnifier";
-import { CornerDownRight } from "lucide-react";
+import { MoveRight } from "lucide-react";
 import { useEffect } from "react";
 
 export const Arith = () => {
@@ -313,28 +313,101 @@ export const Arith = () => {
                       lossy steps in our algorithm, such as trimming and 
                       averaging the Pb and Pr values within 2x2 pixel blocks. Below are some of our tests. Enjoy the madness!
                     </p>
-                    {/* Example: Two images side by side */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <img
-                        src="/pictures/family-pic2.webp"
-                        alt="family-pic2"
-                        className="w-full aspect-[3/2] object-cover rounded-lg"
-                      />
-                      <img
-                        src="/pictures/family-pic.webp"
-                        alt="family-pic"
-                        className="w-full aspect-[3/2] object-cover rounded-lg"
-                      />
+
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+                      {/* Left side - Block test */}
+                      <div className="space-y-4 gradient-border-alt p-4">
+                        <h3 className="text-xl font-semibold mb-4">Split Block Test</h3>
+                        <div className="space-y-2">
+                          {/* Images and arrow row */}
+                          <div className="flex items-center justify-center gap-6 flex-wrap">
+                            <img
+                              src="/projects/arith/split-block-orig-and-out.webp"
+                              alt="arith-split-block-out"
+                              className="w-32 h-32 object-cover rounded-sm"
+                            />
+                            
+                            <MoveRight className="w-6 h-6 text-muted-foreground" />
+                            
+                            <img
+                              src="/projects/arith/split-block-orig-and-out.webp"
+                              alt="arith-split-block-out"
+                              className="w-32 h-32 object-cover rounded-sm"
+                            />
+                          </div>
+                          
+                          {/* Labels row */}
+                          <div className="flex justify-center gap-6 flex-wrap">
+                            <div className="w-32 text-center">
+                              <h4 className="font-medium text-sm">Original</h4>
+                            </div>
+                            
+                            <div className="w-6"></div> {/* Spacer to match arrow width */}
+                            
+                            <div className="w-32 text-center">
+                              <h4 className="font-medium text-sm">After compression</h4>
+                            </div>
+                          </div>
+                        </div>
+      
+                        <div>
+                      
+                        <p className="text-muted-foreground text-sm text-left">                   
+                          The first test used a simple black-and-white 2 x 2 PPM file. Since both black and white have neutral 
+                          Pb and Pr values, averaging across the block does not introduce chroma 
+                          distortion, and the DCT preserves the Y differences, so the results 
+                          are expected to match the original.
+                        </p>
+                      </div>
+                      </div>
+
+                      {/* Right side - Block test */}
+                      <div className="space-y-4 gradient-border-alt p-4">
+                        <h3 className="text-xl font-semibold mb-4">Block Color Test</h3>
+                        <div className="space-y-2">
+                          {/* Images and arrow row */}
+                          <div className="flex items-center justify-center gap-6 flex-wrap">
+                            <img
+                              src="/projects/arith/arith-block-orig.webp"
+                              alt="arith-block-original"
+                              className="w-32 h-32 object-cover rounded-sm"
+                            />
+                            
+                            <MoveRight className="w-6 h-6 text-muted-foreground" />
+                            
+                            <img
+                              src="/projects/arith/arith-block-1.webp"
+                              alt="arith-block-1"
+                              className="w-32 h-32 object-cover rounded-sm"
+                            />
+                          </div>
+                          
+                          {/* Labels row */}
+                          <div className="flex justify-center gap-6 flex-wrap">
+                            <div className="w-32 text-center">
+                              <h4 className="font-medium text-sm">Original</h4>
+                            </div>
+                            
+                            <div className="w-6"></div> {/* Spacer to match arrow width */}
+                            
+                            <div className="w-32 text-center">
+                              <h4 className="font-medium text-sm">After compression</h4>
+                            </div>
+                          </div>
+                        </div>
+      
+                        <div>
+                          <p className="text-muted-foreground text-sm text-left">
+                            The second test used a simple 2 x 2 PPM file with basic colors. The 
+                            grayscale-like result is expected, as averaging the Pb and Pr 
+                            values across the block reduces the chroma information.
+                          </p>
+                        </div>
+                      </div>
                     </div>
-                    
-                    <div className="text-center">
-                      <h4 className="font-semibold text-xl mb-2">My family</h4>
-                      <p className="text-muted-foreground max-w-2xl mx-auto">
-                        My brother Patrick, my Yeye William, my dad Michael, my stepmom Shannon, me 
-                        (the guy in the purple-ish shirt), and the cutest one of all, my dog, the 
-                        one and only Loaf, Auggie. Taken in June 2024.
-                      </p>
-                    </div>
+                                    
+                  
                   </div>
                 
                 </div>
