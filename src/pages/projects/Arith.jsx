@@ -616,7 +616,7 @@ export const Arith = () => {
                               The image above is one of the final testing PPM files. 
                               The series consists of four images (including the original), 
                               each representing a successive round of improvement.
-                              One images was excluded as it looked nearly identical to P2. 
+                              One image was excluded as it looked nearly identical to P2. 
                               This file was used in the project's evaluation, 
                               and the resulting final output had a 2.54% error.
                             </p>
