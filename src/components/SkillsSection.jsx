@@ -35,7 +35,7 @@ const skills = [
         { name: "Audio Recording", level: 80, category: "music" },
         { name: "Audio Editing", level: 80, category: "music" },
         { name: "Mixing", level: 75, category: "music" },
-        { name: "Arranging", level: 80, category: "music" }
+
 ]
 
 const categories = ["all", "programming languages", "backend", "frontend", "tools", "music"]

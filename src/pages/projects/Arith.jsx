@@ -263,7 +263,7 @@ export const Arith = () => {
                             Each step of the process was tested independently in a test 
                             file called <code>test40.c</code>. We began by testing the bit-packing 
                             interface on its own. Next, we performed stepwise testing, with each 
-                            “layer” representing a single stage of the compression or decompression 
+                            "layer" representing a single stage of the compression or decompression 
                             process. Finally, we conducted end-to-end testing, compressing down to a specific 
                             stage and then decompressing back to a reconstructed image to verify 
                             correctness across the full pipeline.
