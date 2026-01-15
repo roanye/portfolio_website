@@ -57,7 +57,7 @@ export const ProjectsSection = () => {
                                                                 <div className="flex justify-center items-center">
                                                                         <Link
                                                                          to={`/projects/${project.title.toLowerCase()}`}
-                                                                         className="flex items-center space-x-2 text-foreground/80 cosmic-button"
+                                                                         className="flex items-center space-x-2 cosmic-button"
                                                                         >
                                                                         <LinkIcon size={20} />
                                                                         <span>View Details</span>

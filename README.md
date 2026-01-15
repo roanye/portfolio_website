@@ -5,7 +5,7 @@ This repo contains code for my portfolio website at (INSERT LINK LATER).
 
 # Credits
 
-Thank you [PedoTech](https://github.com/machadop1407) for your awesome 
+Thank you [PedroTech](https://github.com/machadop1407) for your awesome 
 [tutorial](https://www.youtube.com/watch?v=ifOJ0R5UQOc) to get me started! 
 I'm primarily a backend engineer, so I appreciated learning your methods for 
 designing, organizing, and coding frontend software with ReactJS and Tailwind CSS.
