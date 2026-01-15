@@ -7,7 +7,7 @@ export const AboutSection = () => {
         useEffect(() => {
   const updateTheme = () => {
     const storedTheme = localStorage.getItem("theme");
-    setIsDarkMode(storedTheme === "dark");
+    setIsDarkMode(storedTheme !== "light");
   };
 
   // Run immediately on mount
