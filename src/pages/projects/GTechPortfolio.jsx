@@ -22,9 +22,10 @@ export const GTechPortfolio = () => {
       {/* Background effects */}
       <StarBackground />
 
-      <section id="about" className="py-24 px-4 relative">
+      <section id="hero" className="py-24 px-4 relative">
+        <div className="container mx-auto max-w-8xl flex flex-col gap-6">
+
         <div className="container bg-background/65 rounded-lg p-6">
-          <div className="container mx-auto max-w-8xl flex flex-col gap-6">
             <h2 className="text-5xl md:text-7xl font-bold mb-12 text-center">
               <span className="text-primary">Georgia Tech Portfolio</span>
             </h2>
@@ -161,7 +162,7 @@ export const GTechPortfolio = () => {
                 </div>
         </div>
                 {/* Arith section */}
-                <div className="container mx-auto max-w-8xl flex flex-col gap-6 mt-12">
+                <div id="arith" className="container mx-auto max-w-8xl flex flex-col gap-6 mt-12">
                   <h2 className="text-5xl md:text-7xl font-bold mb-12 text-center">
                             <span className="text-primary">Arith</span>
                   </h2>
@@ -764,7 +765,7 @@ export const GTechPortfolio = () => {
         </div>
 
         {/* Videos Section */}
-        <div className="container mx-auto max-w-8xl flex flex-col gap-8">
+        <div id="videos" className="container mx-auto max-w-8xl flex flex-col gap-8">
           <h2 className="text-5xl md:text-7xl font-bold mb-6 text-center">
             <span className="text-primary">Videos</span>
           </h2>
@@ -808,7 +809,7 @@ export const GTechPortfolio = () => {
         </div>
 
         {/* Audio Recordings Section */}
-        <div className="container mx-auto max-w-8xl flex flex-col gap-8 mt-12">
+        <div id="audio" className="container mx-auto max-w-8xl flex flex-col gap-8 mt-12">
           <h2 className="text-5xl md:text-7xl font-bold mb-6 text-center">
             <span className="text-primary">Audio Recordings</span>
           </h2>
@@ -854,7 +855,7 @@ export const GTechPortfolio = () => {
         </div>
 
         {/* Arrangements Section */}
-        <div className="container mx-auto max-w-8xl flex flex-col gap-8 mt-12">
+        <div id="arrangements" className="container mx-auto max-w-8xl flex flex-col gap-8 mt-12">
           <h2 className="text-5xl md:text-7xl font-bold mb-6 text-center">
             <span className="text-primary">Arrangements</span>
           </h2>
