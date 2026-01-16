@@ -34,7 +34,7 @@ export const GTechPortfolio = () => {
 
                 <div className="space-y-6 text-left">
                   <p className="text-muted-foreground">
-                    Below is a portfolio of projects I have completed. Below is a list of each project with a brief description.
+                    This is a portfolio of projects I have completed. Below is a list of each project with a brief description.
                     You can find all resources below this overview section.
                   </p>
                   <p className="text-sm italic text-primary text-glow">
@@ -92,7 +92,7 @@ export const GTechPortfolio = () => {
                           <span className="text-primary font-bold mr-2">▶</span>
                           <span className="font-bold">Petrichor:</span>
                         </div>
-                        <p className="flex-1 leading-relaxed mt-1 md:mt-0">This is a recording of my final project for my class, Computer Tools for Musicians. It was produced in Digital Performer 11.</p>
+                        <p className="flex-1 leading-relaxed mt-1 md:mt-0">This is a recording of my final project for the class, Computer Tools for Musicians. It was produced in Digital Performer 11.</p>
                       </li>
                       <li className="flex flex-col md:flex-row md:space-x-2">
                         <div className="flex-none flex items-start space-x-1 md:min-w-[8rem]">
@@ -106,7 +106,7 @@ export const GTechPortfolio = () => {
 
                   <div>
                     <p className="text-muted-foreground font-semibold mb-3">Sheet Music:</p>
-                    <p className="text-muted-foreground mb-3">The below arrangements were made in Musescore by me for my a cappella group, Tufts Beelzebubs:</p>
+                    <p className="text-muted-foreground mb-3">The below arrangements were made in Musescore by me for my a cappella group, the Tufts Beelzebubs:</p>
                     <ul className="space-y-2 ml-4 md:ml-6 text-muted-foreground">
                       <li className="flex items-start space-x-2">
                         <span className="text-primary font-bold mr-2">▶</span>
