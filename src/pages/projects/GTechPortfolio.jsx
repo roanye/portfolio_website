@@ -1,7 +1,7 @@
 import { StarBackground } from "@/components/StarBackground";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import Magnifier from "react-magnifier";
-import { MoveRight } from "lucide-react";
+import { MoveRight, Download, FileMusic } from "lucide-react";
 import { useEffect } from "react";
 
 export const GTechPortfolio = () => {
@@ -34,7 +34,8 @@ export const GTechPortfolio = () => {
 
                 <div className="space-y-6 text-left">
                   <p className="text-muted-foreground">
-                    Below is a portfolio of projects I have completed. Here is a list of each project with a brief description:
+                    Below is a portfolio of projects I have completed. Below is a list of each project with a brief description.
+                    You can find all resources below this overview section.
                   </p>
                   <p className="text-sm italic text-primary text-glow">
                     Please disregard the menu at the top of the page as that goes to my main website. Feel free to explore the other pages if you wish, but they are still under construction!
@@ -113,11 +114,41 @@ export const GTechPortfolio = () => {
                       </li>
                       <li className="flex items-start space-x-2">
                         <span className="text-primary font-bold mr-2">▶</span>
-                        <span>What's new Scooby Doo?</span>
+                        <span>What's new Scooby-Doo?</span>
                       </li>
-                      <li className="flex items-start space-x-2">
-                        <span className="text-primary font-bold mr-2">▶</span>
-                        <span>Check Yes, Juliet.</span>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <p className="text-muted-foreground font-semibold mb-3">Awards:</p>
+                    <ul className="space-y-3 ml-4 md:ml-6 text-muted-foreground">
+                      <li className="flex flex-col md:flex-row md:gap-1">
+                        <div className="flex-none flex items-start space-x-1">
+                          <span className="text-primary font-bold mr-2">▶</span>
+                          <span className="font-bold">CARA Best Funk / Disco Song | 2023:</span>
+                        </div>
+                        <p className="flex-1 leading-relaxed mt-1 md:mt-0">"Darwin Derby" from Prevaill, Tufts University Beelzebubs</p>
+                      </li>
+                      <li className="flex flex-col md:flex-row md:gap-1">
+                        <div className="flex-none flex items-start space-x-1">
+                          <span className="text-primary font-bold mr-2">▶</span>
+                          <span className="font-bold">CARA Best Lower Voices Collegiate Album or EP | 2023:</span>
+                        </div>
+                        <p className="flex-1 leading-relaxed mt-1 md:mt-0">Prevaill, Tufts University Beelzebubs</p>
+                      </li>
+                      <li className="flex flex-col md:flex-row md:gap-1">
+                        <div className="flex-none flex items-start space-x-1">
+                          <span className="text-primary font-bold mr-2">▶</span>
+                          <span className="font-bold">CARA Best Lower Voices Collegiate Album or EP | 2025:</span>
+                        </div>
+                        <p className="flex-1 leading-relaxed mt-1 md:mt-0">Delirium, Tufts University Beelzebubs</p>
+                      </li>
+                      <li className="flex flex-col md:flex-row md:gap-1">
+                        <div className="flex-none flex items-start space-x-1">
+                          <span className="text-primary font-bold mr-2">▶</span>
+                          <span className="font-bold">CARA Runner-up Best Lower Voices Collegiate Lead Vocal | 2025:</span>
+                        </div>
+                        <p className="flex-1 leading-relaxed mt-1 md:mt-0">"Comin' Home Baby" from Delirium, Tufts University Beelzebubs</p>
                       </li>
                     </ul>
                   </div>
@@ -130,7 +161,7 @@ export const GTechPortfolio = () => {
                 </div>
         </div>
                 {/* Arith section */}
-                <div className="container mx-auto max-w-8xl flex flex-col gap-6">
+                <div className="container mx-auto max-w-8xl flex flex-col gap-6 mt-12">
                   <h2 className="text-5xl md:text-7xl font-bold mb-12 text-center">
                             <span className="text-primary">Arith</span>
                   </h2>
@@ -730,6 +761,177 @@ export const GTechPortfolio = () => {
                       </div>                
                   </div>
                 </div>
+        </div>
+
+        {/* Videos Section */}
+        <div className="container mx-auto max-w-8xl flex flex-col gap-8">
+          <h2 className="text-5xl md:text-7xl font-bold mb-6 text-center">
+            <span className="text-primary">Videos</span>
+          </h2>
+
+          <div className="gradient-border space-y-6 p-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="flex flex-col gap-4">
+                <h3 className="text-xl font-semibold">Handdown Demo</h3>
+                <div className="aspect-video">
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    src="https://www.youtube.com/embed/M3GioxLCkPI"
+                    title="Handdown Demo"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
+                </div>
+                <p className="text-muted-foreground text-sm"> Above is a video walkthrough of the Handdown MVP from April 2025.</p>
+              </div>
+
+              <div className="flex flex-col gap-4">
+                <h3 className="text-xl font-semibold">Save the Last Dance for Me</h3>
+                <div className="aspect-video">
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    src="https://www.youtube.com/embed/nfBgXMBIV0E"
+                    title="Save the Last Dance for Me"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
+                </div>
+                <p className="text-muted-foreground text-sm"> Above is a recording of my senior solo performance with the Tufts Beelzebubs. 
+                  It was performed at Goddard Chapel at Tufts University in funny costumes (it's a tradition).</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Audio Recordings Section */}
+        <div className="container mx-auto max-w-8xl flex flex-col gap-8 mt-12">
+          <h2 className="text-5xl md:text-7xl font-bold mb-6 text-center">
+            <span className="text-primary">Audio Recordings</span>
+          </h2>
+
+          <div className="gradient-border space-y-6 p-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="gradient-border-alt flex flex-col gap-4 p-2">
+                <h3 className="text-xl font-semibold">Petrichor</h3>
+                <img
+                  src="/music_production/PetrichorImage.jpg"
+                  alt="Petrichor Album Cover"
+                  className="w-2/3 h-auto rounded-sm object-cover mx-auto"
+                />
+                <audio controls className="w-2/3 mx-auto">
+                  <source src="/music_production/Petrichor.wav" type="audio/wav" />
+                  Your browser does not support the audio element.
+                </audio>
+                <p className="text-muted-foreground text-sm">Petrichor is the final project for my Computer Tools for Musicians class. 
+                  It was produced in Digital Performer 11 and features my vocals accompanied by synthesizers from Reason and MOTU.
+                </p>
+              </div>
+
+              <div className="gradient-border-alt flex flex-col gap-4 p-2">
+                <h3 className="text-xl font-semibold">Close Your Eyes</h3>
+                <img
+                  src="/music_production/ThinkingOfHerAlbumCover.png"
+                  alt="Thinking of Her Album Cover"
+                  className="w-2/3 h-auto rounded-sm object-cover mx-auto"
+                />
+                <audio controls className="w-2/3 mx-auto">
+                  <source src="/music_production/CloseYourEyes.wav" type="audio/wav" />
+                  Your browser does not support the audio element.
+                </audio>
+                <p className="text-muted-foreground text-sm">This is a track from my two song Lofi single: Thinking of Her. 
+                  It is produced in Logic Pro X and was one of my first original compositions. The inspiration from this song
+                  came from a dream of mine three years ago. The story begins with two dancers separated by darkness, each moving in solitude.
+                  As the man dances, he slowly spirals his way into a memory of a peaceful park nestled in the heart of a busy city, 
+                  where he is joined by his partner in a waltz for a fleeting moment. The song ends as he twists his way back into darkness by himself.  
+                  </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Arrangements Section */}
+        <div className="container mx-auto max-w-8xl flex flex-col gap-8 mt-12">
+          <h2 className="text-5xl md:text-7xl font-bold mb-6 text-center">
+            <span className="text-primary">Arrangements</span>
+          </h2>
+
+          <div className="gradient-border space-y-6 p-6">
+            <p className="text-muted-foreground mb-8">
+              Below are sheet music arrangements I've created for the Tufts Beelzebubs a cappella group. Each arrangement is available as both a PDF preview and a MuseScore file (.mscz) for editing.
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {/* Save the Last Dance for Me */}
+              <div className="flex flex-col gap-4 gradient-border-alt p-6 rounded-lg">
+                <h3 className="text-xl font-semibold">Save the Last Dance for Me</h3>
+                <div className="bg-foreground/5 rounded-sm p-4 min-h-64 flex items-center justify-center">
+                  <embed
+                    src="/arrangements/save-the-last-dance-for-me.pdf"
+                    type="application/pdf"
+                    className="w-full min-h-screen"
+                  />
+                </div>
+                <div className="flex gap-3">
+                  <a
+                    href="/arrangements/save-the-last-dance-for-me-final.mscz"
+                    download
+                    className="flex-1 flex items-center justify-center gap-2 cosmic-button text-sm"
+                  >
+                    <Download size={16} />
+                    <span>.mscz</span>
+                  </a>
+                  <a
+                    href="/arrangements/save-the-last-dance-for-me.pdf"
+                    download
+                    className="flex-1 flex items-center justify-center gap-2 cosmic-button text-sm"
+                  >
+                    <Download size={16} />
+                    <span>PDF</span>
+                  </a>
+                </div>
+                <p className="text-muted-foreground text-sm">This is the arragement for my senior solo. The performance is included in the video 
+                  recording section. It was arranged for a 15 person TTBB a cappella group by me in the spring of 2025.
+                </p>
+              </div>
+
+              {/* What's new Scooby-Doo? */}
+              <div className="flex flex-col gap-4 gradient-border-alt p-6 rounded-lg">
+                <h3 className="text-xl font-semibold">What's New Scooby-Doo?</h3>
+                <div className="bg-foreground/5 rounded-sm p-4 min-h-64 flex items-center justify-center">
+                  <embed
+                    src="/arrangements/whats-new-scoob.pdf"
+                    type="application/pdf"
+                    className="w-full min-h-screen"
+                  />
+                </div>
+                <div className="flex gap-3">
+                  <a
+                    href="/arrangements/whats-new-scoob.mscz"
+                    download
+                    className="flex-1 flex items-center justify-center gap-2 cosmic-button text-sm"
+                  >
+                    <Download size={16} />
+                    <span>.mscz</span>
+                  </a>
+                  <a
+                    href="/arrangements/whats-new-scoob.pdf"
+                    download
+                    className="flex-1 flex items-center justify-center gap-2 cosmic-button text-sm"
+                  >
+                    <Download size={16} />
+                    <span>PDF</span>
+                  </a>
+                </div>
+                <p className="text-muted-foreground text-sm">This arrangement was also arranged for a 12 person TTBB a cappella group by me in the fall of 2024.
+                  The arrangement appears on the Tufts Beelzebubs most recent EP "School's Out" released this past December.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
