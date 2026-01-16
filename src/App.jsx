@@ -3,6 +3,7 @@ import { Home } from "./pages/Home";
 import { NotFound } from "./pages/NotFound";
 import { Toaster } from "@/components/ui/toaster";
 import { Arith } from "./pages/projects/Arith";
+import { GTechPortfolio } from "./pages/projects/GTechPortfolio";
 import { Footer } from "./components/Footer";
 import { NavBar } from "./components/NavBar";
 
@@ -17,6 +18,7 @@ function App() {
         <Routes>
           <Route index element={<Home />} />
           <Route path="projects/arith" element={<Arith />} />
+          <Route path="projects/gtech-portfolio" element={<GTechPortfolio />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
