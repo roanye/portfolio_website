@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef, Fragment } from "react";
 import { ParticleBackground } from "@/components/ParticleBackground";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { BookOpen, ArrowDown, X } from "lucide-react";
@@ -11,6 +11,13 @@ function djb2(str) {
   return Math.abs(h);
 }
 
+const SPINE_COLORS = [
+  "#8A6548", "#C4874A", "#5A8070", "#A06040",
+  "#7A5C3A", "#6A8060", "#B06848", "#4A7870",
+  "#9A7050", "#8A9058", "#C09060", "#507868",
+  "#6B5B3A", "#A08040", "#B88050", "#7A8A50",
+];
+
 const allPoems = Object.entries(poemModules).map(([path, data]) => {
   const parts = path.split("/");
   const filename = parts[parts.length - 1].replace(".json", "");
@@ -20,7 +27,7 @@ const allPoems = Object.entries(poemModules).map(([path, data]) => {
   return {
     slug: filename,
     genre,
-    color: data.color,
+    color: SPINE_COLORS[h % SPINE_COLORS.length],
     height: 90 + (h % 8) * 10,
     width: 22 + ((h >> 4) % 5) * 6,
     ...data,
@@ -34,6 +41,76 @@ const byGenre = allPoems.reduce((acc, poem) => {
 
 const formatGenre = (s) =>
   s.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+
+// Pack individual books across shelves — books wrap to next shelf instead of scrolling.
+// A genre split across shelves shows its label on each shelf it appears on.
+const BOOK_GAP = 3;
+const COL_PADDING = 20;   // 10px left + 10px right per genre column
+const DIVIDER_COST = 1;   // 1px divider (no margin — padding is already in COL_PADDING)
+
+// Rough pixel estimate for a genre sign label (13px bold, 0.13em spacing, 18px h-padding, 12px container padding)
+function estimateLabelWidth(genre) {
+  return formatGenre(genre).length * 9 + 60;
+}
+
+// Effective column width = max(label, books)
+function colWidth(genre, poems) {
+  const booksW = poems.reduce((s, p) => s + p.width + BOOK_GAP, 0) + COL_PADDING;
+  return Math.max(estimateLabelWidth(genre), booksW);
+}
+
+function packIntoShelves(entries, maxWidth) {
+  const shelves = [];
+  let shelf = []; // [genre, poems[]][]
+  let used = 0;
+
+  // Pre-compute each genre's total width so we can look ahead
+  const totalWidths = Object.fromEntries(entries.map(([g, ps]) => [g, colWidth(g, ps)]));
+
+  for (const [genre, poems] of entries) {
+    for (const poem of poems) {
+      const lastSeg = shelf[shelf.length - 1];
+      const newGenre = !lastSeg || lastSeg[0] !== genre;
+
+      if (newGenre) {
+        const w = colWidth(genre, [poem]);
+        const divider = shelf.length > 0 ? DIVIDER_COST : 0;
+        const totalW = totalWidths[genre];
+        // If the full genre fits on a fresh shelf but not on this one, start fresh
+        if (shelf.length > 0 && used + divider + totalW > maxWidth && totalW <= maxWidth) {
+          shelves.push(shelf);
+          shelf = [[genre, [poem]]];
+          used = w;
+        } else if (shelf.length > 0 && used + divider + w > maxWidth) {
+          shelves.push(shelf);
+          shelf = [[genre, [poem]]];
+          used = w;
+        } else {
+          shelf.push([genre, [poem]]);
+          used += divider + w;
+        }
+      } else {
+        // Adding to existing column — only increases used if books exceed label width
+        const prevW = colWidth(lastSeg[0], lastSeg[1]);
+        lastSeg[1].push(poem);
+        const nextW = colWidth(lastSeg[0], lastSeg[1]);
+        const delta = nextW - prevW;
+        if (delta > 0 && used + delta > maxWidth) {
+          lastSeg[1].pop();
+          if (lastSeg[1].length === 0) shelf.pop();
+          shelves.push(shelf);
+          shelf = [[genre, [poem]]];
+          used = colWidth(genre, [poem]);
+        } else {
+          used += delta;
+        }
+      }
+    }
+  }
+
+  if (shelf.length > 0) shelves.push(shelf);
+  return shelves;
+}
 
 /* Journal modal — single page of paper */
 const JournalModal = ({ poem, onClose }) => {
@@ -59,13 +136,13 @@ const JournalModal = ({ poem, onClose }) => {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-2 md:p-10"
+      className="fixed inset-0 z-50 flex items-center justify-center p-1 md:p-10"
       style={{ backdropFilter: "blur(5px)", background: "rgba(0,0,0,0.58)" }}
       onClick={onClose}
     >
       <div
         style={{
-          maxWidth: 560,
+          maxWidth: "min(560px, 100vw - 8px)",
           width: "100%",
           maxHeight: "88vh",
           borderRadius: 2,
@@ -103,20 +180,20 @@ const JournalModal = ({ poem, onClose }) => {
         </button>
 
         {/* Scrollable content */}
-        <div className="overflow-y-auto" style={{ padding: "clamp(20px, 5vw, 44px)" , paddingTop: 36, paddingBottom: 48 }}>
-          <h1 style={{ fontSize: 26, fontWeight: 700, color: poem.color, lineHeight: 1.25, marginBottom: 6, textAlign: "left" }}>
+        <div style={{ overflowY: "auto", overflowX: "hidden", padding: "clamp(14px, 4vw, 44px)", paddingTop: 24, paddingBottom: 36 }}>
+          <h1 style={{ fontSize: 28, fontWeight: 700, color: poem.color, lineHeight: 1.25, marginBottom: 4, textAlign: "left" }}>
             {poem.title}
           </h1>
-          <p style={{ fontSize: 10, letterSpacing: "0.07em", color: page.muted, marginBottom: 24, textTransform: "uppercase", textAlign: "left" }}>
+          <p style={{ fontSize: 11, letterSpacing: "0.07em", color: page.muted, marginBottom: 12, textTransform: "uppercase", textAlign: "left" }}>
             {poem.date}
           </p>
-          <div style={{ height: 1, background: `linear-gradient(to right, ${poem.color}55, transparent)`, marginBottom: 28 }} />
+          <div style={{ height: 1, background: `linear-gradient(to right, ${poem.color}55, transparent)`, marginBottom: 16 }} />
 
           <div style={{ color: page.text }}>
             {stanzas.map((stanza, i) => (
-              <div key={i} style={{ marginBottom: 28 }}>
+              <div key={i} style={{ marginBottom: 20 }}>
                 {stanza.split("\n").map((line, j) => (
-                  <p key={j} style={{ fontSize: 14, lineHeight: "27px", margin: 0, textAlign: "left" }}>
+                  <p key={j} style={{ fontSize: "clamp(13px, 3.5vw, 15px)", lineHeight: 1.85, margin: 0, textAlign: "left" }}>
                     {line || " "}
                   </p>
                 ))}
@@ -182,8 +259,8 @@ const BookSpine = ({ poem, onEnter, onLeave, onSelect }) => {
   );
 };
 
-/* Single shelf row */
-const ShelfRow = ({ genre, poems, onSelect }) => {
+/* Single shelf row — may contain multiple genre groups */
+const ShelfRow = ({ groups, onSelect }) => {
   const [hoverInfo, setHoverInfo] = useState(null);
 
   const handleEnter = useCallback((poem, rect) => setHoverInfo({ poem, rect }), []);
@@ -191,34 +268,43 @@ const ShelfRow = ({ genre, poems, onSelect }) => {
 
   return (
     <div>
-      <div style={{ background: "var(--wood-back)", position: "relative" }}>
-        {/* Centered shelf sign */}
-        <div style={{ height: 44, display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(0,0,0,0.28)", borderBottom: "1px solid rgba(0,0,0,0.22)" }}>
-          <div style={{
-            background: "hsla(350,58%,44%,0.18)",
-            border: "1px solid hsla(350,58%,58%,0.45)",
-            borderRadius: 4,
-            padding: "4px 18px",
-            boxShadow: "0 1px 4px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05)",
-          }}>
-            <span style={{ fontSize: 13, fontWeight: 700, letterSpacing: "0.13em", textTransform: "uppercase", color: "hsl(350,80%,80%)" }}>
-              {formatGenre(genre)}
-            </span>
-          </div>
-        </div>
-
-        <div style={{ display: "flex", alignItems: "flex-end", gap: 1, padding: "28px 10px 0", overflowX: "auto", overflowY: "visible", scrollbarWidth: "thin", scrollbarColor: "rgba(255,255,255,0.06) transparent", perspective: "480px", perspectiveOrigin: "center 85%", minHeight: 110 }}>
-          {poems.map((poem) => (
-            <BookSpine
-              key={poem.slug}
-              poem={poem}
-              onEnter={handleEnter}
-              onLeave={handleLeave}
-              onSelect={onSelect}
-            />
-          ))}
-          <div style={{ flexShrink: 0, width: 14 }} />
-        </div>
+      <div style={{ background: "var(--wood-back)", display: "flex", alignItems: "stretch" }}>
+        {groups.map(([genre, poems], gi) => (
+          <Fragment key={genre}>
+            {gi > 0 && (
+              <div style={{ width: 1, background: "rgba(255,255,255,0.08)", flexShrink: 0 }} />
+            )}
+            {/* Each genre is a column: sign on top, books below */}
+            <div style={{ display: "flex", flexDirection: "column", flexShrink: 0, minWidth: "max-content", ...(gi === groups.length - 1 && { flex: 1 }) }}>
+              <div style={{ height: 36, display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(0,0,0,0.28)", borderBottom: "1px solid rgba(0,0,0,0.22)", padding: "0 12px" }}>
+                <div style={{
+                  background: "hsla(350,58%,44%,0.18)",
+                  border: "1px solid hsla(350,58%,58%,0.45)",
+                  borderRadius: 4,
+                  padding: "4px 18px",
+                  whiteSpace: "nowrap",
+                  boxShadow: "0 1px 4px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05)",
+                }}>
+                  <span style={{ fontSize: 13, fontWeight: 700, letterSpacing: "0.13em", textTransform: "uppercase", color: "hsl(350,80%,80%)" }}>
+                    {formatGenre(genre)}
+                  </span>
+                </div>
+              </div>
+              <div style={{ display: "flex", alignItems: "flex-end", gap: 3, padding: "14px 10px 0", flex: 1, perspective: "480px", perspectiveOrigin: "center 85%", minHeight: 90 }}>
+                {poems.map((poem) => (
+                  <BookSpine
+                    key={poem.slug}
+                    poem={poem}
+                    onEnter={handleEnter}
+                    onLeave={handleLeave}
+                    onSelect={onSelect}
+                  />
+                ))}
+              </div>
+            </div>
+          </Fragment>
+        ))}
+        <div style={{ flexShrink: 0, width: 14 }} />
       </div>
 
       {/* Fixed tooltip above hovered book */}
@@ -265,38 +351,59 @@ const ShelfRow = ({ genre, poems, onSelect }) => {
 
 /* Plank */
 const Plank = ({ thick = false }) => (
-  <div style={{ height: thick ? 28 : 20, background: "linear-gradient(to bottom, var(--wood-plank-light) 0%, var(--wood-plank-mid) 55%, var(--wood-plank-dark) 100%)", boxShadow: "0 4px 12px rgba(0,0,0,0.5)", position: "relative", zIndex: 2, flexShrink: 0 }}>
+  <div style={{ height: thick ? 22 : 14, background: "linear-gradient(to bottom, var(--wood-plank-light) 0%, var(--wood-plank-mid) 55%, var(--wood-plank-dark) 100%)", boxShadow: "0 4px 12px rgba(0,0,0,0.5)", position: "relative", zIndex: 2, flexShrink: 0 }}>
     <div style={{ height: 2, background: "rgba(255,255,255,0.2)" }} />
     <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 5, background: "rgba(0,0,0,0.38)" }} />
   </div>
 );
 
 /* Bookcase */
-const Bookcase = ({ entries, onSelect }) => (
-  <div
-    className="rounded-xl overflow-hidden"
-    style={{
-      background: `linear-gradient(to right, var(--wood-plank-dark) 0%, var(--wood-border) 6%, var(--wood-border) 94%, var(--wood-plank-dark) 100%)`,
-      padding: "0 16px",
-      boxShadow: "0 20px 56px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.08)",
-    }}
-  >
-    <Plank thick />
-    {entries.map(([genre, poems]) => (
-      <div key={genre}>
-        <ShelfRow genre={genre} poems={poems} onSelect={onSelect} />
-        <Plank />
+const Bookcase = ({ entries, onSelect }) => {
+  const ref = useRef(null);
+  const [maxWidth, setMaxWidth] = useState(820);
+
+  useEffect(() => {
+    if (!ref.current) return;
+    const ro = new ResizeObserver(([entry]) => {
+      setMaxWidth(entry.contentRect.width - 14); // subtract trailing spacer width
+    });
+    ro.observe(ref.current);
+    return () => ro.disconnect();
+  }, []);
+
+  const shelves = packIntoShelves(entries, maxWidth);
+
+  return (
+    <div
+      ref={ref}
+      className="rounded-xl overflow-hidden"
+      style={{
+        background: `linear-gradient(to right, var(--wood-plank-dark) 0%, var(--wood-border) 6%, var(--wood-border) 94%, var(--wood-plank-dark) 100%)`,
+        padding: "0 16px",
+        boxShadow: "0 20px 56px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.08)",
+      }}
+    >
+      <Plank thick />
+      {shelves.map((groups, i) => (
+        <div key={i}>
+          <ShelfRow groups={groups} onSelect={onSelect} />
+          <Plank />
+        </div>
+      ))}
+      <div style={{ height: 24, margin: "0 -16px", background: "linear-gradient(to bottom, var(--wood-plank-mid), var(--wood-plank-dark))", boxShadow: "inset 0 3px 6px rgba(0,0,0,0.35)", position: "relative" }}>
+        <div style={{ height: 2, background: "rgba(255,255,255,0.07)" }} />
       </div>
-    ))}
-    <div style={{ height: 36, margin: "0 -16px", background: "linear-gradient(to bottom, var(--wood-plank-mid), var(--wood-plank-dark))", boxShadow: "inset 0 3px 6px rgba(0,0,0,0.35)", position: "relative" }}>
-      <div style={{ height: 2, background: "rgba(255,255,255,0.07)" }} />
     </div>
-  </div>
-);
+  );
+};
 
 /* Page */
 export const Poetry = () => {
-  const genreEntries = Object.entries(byGenre);
+  const genreEntries = Object.entries(byGenre).sort(([a], [b]) => {
+    if (a === "fire") return 1;
+    if (b === "fire") return -1;
+    return a.localeCompare(b);
+  });
   const [selectedPoem, setSelectedPoem] = useState(null);
 
   const handleSelect = useCallback((poem) => setSelectedPoem(poem), []);
@@ -311,13 +418,13 @@ export const Poetry = () => {
       <section id="hero" className="flex flex-col items-center justify-center pt-20 pb-8 px-4">
         <div className="text-center z-10 space-y-3">
           <div className="flex items-center justify-center gap-3">
-            <BookOpen className="h-8 w-8 text-primary opacity-0 animate-fade-in" />
+            <BookOpen className="h-8 w-8 text-primary opacity-0 animate-fade-in translate-y-1" />
             <h1 className="text-4xl md:text-6xl font-bold opacity-0 animate-fade-in">
               Poetry <span className="text-primary">Library</span>
             </h1>
           </div>
           <p className="text-muted-foreground opacity-0 animate-fade-in-delay-1">
-            Hover to peek · click to read.
+            Hover to peek, click to read.
           </p>
         </div>
         <a href="#shelves" className="flex flex-col items-center gap-1 animate-bounce mt-6">
