@@ -1,7 +1,7 @@
-import { StarBackground } from "@/components/StarBackground";
+import { ParticleBackground } from "@/components/ParticleBackground";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import Magnifier from "react-magnifier";
-import { MoveRight } from "lucide-react";
+import { MoveRight, ArrowDown } from "lucide-react";
 import { useEffect } from "react";
 
 export const Arith = () => {
@@ -20,16 +20,33 @@ export const Arith = () => {
       <ThemeToggle />
 
       {/* Background effects */}
-      <StarBackground />
+      <ParticleBackground />
 
-      <section id="about" className="py-24 px-4 relative">
-        <div className="container bg-background/65 rounded-lg p-6">
-                {" "}
-                <div className="container mx-auto max-w-8xl flex flex-col gap-6">
-                  <h2 className="text-5xl md:text-7xl font-bold mb-12 text-center">
-                            <span className="text-primary">Arith</span>
-                  </h2>
+      {/* Hero */}
+      <section
+        id="hero"
+        className="flex flex-col items-center justify-center pt-20 pb-8 px-4"
+      >
+        <div className="text-center z-10 space-y-3">
+          <h1 className="text-5xl md:text-7xl font-bold opacity-0 animate-fade-in">
+            <span className="text-primary">Arith</span>
+          </h1>
+          <p className="text-muted-foreground text-lg opacity-0 animate-fade-in-delay-1">
+            JPEG-inspired image compression &amp; decompression
+          </p>
+        </div>
+        <a
+          href="#about"
+          className="flex flex-col items-center gap-1 animate-bounce mt-6"
+        >
+          <span className="text-xs text-muted-foreground">Scroll</span>
+          <ArrowDown className="h-5 w-5 text-primary" />
+        </a>
+      </section>
 
+      <section id="about" className="py-12 px-4 relative">
+        <div className="w-full bg-background/65 rounded-lg p-4 md:p-6">
+                <div className="flex flex-col gap-6">
                   <div 
                     className="grid grid-cols-1 md:grid-cols-2 gap-6"
                   >
@@ -257,22 +274,19 @@ export const Arith = () => {
 
                       <div>
                         <h3 className="text-2xl font-semibold mb-6">Testing</h3>
-                        
                         <div className="space-y-4 text-left">
                           <p className="text-muted-foreground">
-                            Each step of the process was tested independently in a test 
-                            file called <code>test40.c</code>. We began by testing the bit-packing 
-                            interface on its own. Next, we performed stepwise testing, with each 
-                            "layer" representing a single stage of the compression or decompression 
-                            process. Finally, we conducted end-to-end testing, compressing down to a specific 
-                            stage and then decompressing back to a reconstructed image to verify 
+                            Each step of the process was tested independently in a test
+                            file called <code>test40.c</code>. We began by testing the bit-packing
+                            interface on its own. Next, we performed stepwise testing, with each
+                            "layer" representing a single stage of the compression or decompression
+                            process. Finally, we conducted end-to-end testing, compressing down to a specific
+                            stage and then decompressing back to a reconstructed image to verify
                             correctness across the full pipeline.
                           </p>
-                          {/* Separator Line */}
                         </div>
                       </div>
-                      
-                
+
                     </div>
 
                       {/* Design doc */}
@@ -293,7 +307,7 @@ export const Arith = () => {
                           alt="arith-design-doc"
                           mgWidth={225}
                           mgHeight={225}
-                          zoomFactor={1}   
+                          zoomFactor={1}
                           mgShape="square"
                           className="w-full h-full object-cover"
                         />
@@ -322,11 +336,11 @@ export const Arith = () => {
                           <h3 className="text-xl font-semibold mb-4">Split Block Test</h3>
                           <div className="space-y-2">
                             {/* Images and arrow row */}
-                            <div className="flex items-center justify-center gap-6 flex-wrap">
+                            <div className="flex items-center justify-center gap-2">
                               <img
                                 src="/projects/arith/split-block-orig-and-out.webp"
                                 alt="arith-split-block-out"
-                                className="w-32 h-32 object-cover rounded-sm"
+                                className="w-20 h-20 sm:w-32 sm:h-32 object-cover rounded-sm"
                               />
                               
                               <MoveRight className="w-6 h-6 text-muted-foreground" />
@@ -334,19 +348,19 @@ export const Arith = () => {
                               <img
                                 src="/projects/arith/split-block-orig-and-out.webp"
                                 alt="arith-split-block-out"
-                                className="w-32 h-32 object-cover rounded-sm"
+                                className="w-20 h-20 sm:w-32 sm:h-32 object-cover rounded-sm"
                               />
                             </div>
                             
                             {/* Labels row */}
-                            <div className="flex justify-center gap-6 flex-wrap">
-                              <div className="w-32 text-center">
+                            <div className="flex justify-center gap-2">
+                              <div className="w-20 sm:w-32 text-center">
                                 <h4 className="font-medium text-sm">Original</h4>
                               </div>
                               
                               <div className="w-6"></div> {/* Spacer to match arrow width */}
                               
-                              <div className="w-32 text-center">
+                              <div className="w-20 sm:w-32 text-center">
                                 <h4 className="font-medium text-sm">After compression</h4>
                               </div>
                             </div>
@@ -367,11 +381,11 @@ export const Arith = () => {
                           <h3 className="text-xl font-semibold mb-4">Arrow Test</h3>
                           <div className="space-y-2">
                             {/* Images and arrow row */}
-                            <div className="flex items-center justify-center gap-6 flex-wrap">
+                            <div className="flex items-center justify-center gap-2">
                               <img
                                 src="/projects/arith/arrow-orig.webp"
                                 alt="arrow-orig"
-                                className="w-20 h-34 object-cover rounded-sm"
+                                className="w-14 sm:w-20 object-cover rounded-sm"
                               />
 
                               <MoveRight className="w-6 h-6 text-muted-foreground" />
@@ -379,7 +393,7 @@ export const Arith = () => {
                               <img
                                 src="/projects/arith/arrow-1.webp"
                                 alt="arrow-1"
-                                className="w-20 h-34 object-cover rounded-sm"
+                                className="w-14 sm:w-20 object-cover rounded-sm"
                               />
                               
                               <MoveRight className="w-6 h-6 text-muted-foreground" />
@@ -387,25 +401,25 @@ export const Arith = () => {
                               <img
                                 src="/projects/arith/arrow-2.webp"
                                 alt="arrow-2"
-                                className="w-20 h-34 object-cover rounded-sm"
+                                className="w-14 sm:w-20 object-cover rounded-sm"
                               />
                             </div>
                             
                             {/* Labels row */}
-                            <div className="flex justify-center gap-6 flex-wrap">
-                              <div className="w-20 text-center">
+                            <div className="flex justify-center gap-2">
+                              <div className="w-14 sm:w-20 text-center">
                                 <h4 className="font-medium text-sm">Original</h4>
                               </div>
                               
                               <div className="w-6"></div> {/* Spacer to match arrow width */}
 
-                              <div className="w-20 text-center">
+                              <div className="w-14 sm:w-20 text-center">
                                 <h4 className="font-medium text-sm">P1</h4>
                               </div>
 
                                 <div className="w-6"></div> {/* Spacer to match arrow width */}
                                 
-                              <div className="w-20 text-center">
+                              <div className="w-14 sm:w-20 text-center">
                                 <h4 className="font-medium text-sm">P2</h4>
                               </div>
                             </div>
@@ -429,11 +443,11 @@ export const Arith = () => {
                           <h3 className="text-xl font-semibold mb-4">Block Color Test</h3>
                           <div className="space-y-2">
                             {/* Images and arrow row */}
-                            <div className="flex items-center justify-center gap-6 flex-wrap">
+                            <div className="flex items-center justify-center gap-2">
                               <img
                                 src="/projects/arith/arith-block-orig.webp"
                                 alt="arith-block-orig"
-                                className="w-32 h-32 object-cover rounded-sm"
+                                className="w-20 h-20 sm:w-32 sm:h-32 object-cover rounded-sm"
                               />
                               
                               <MoveRight className="w-6 h-6 text-muted-foreground" />
@@ -441,19 +455,19 @@ export const Arith = () => {
                               <img
                                 src="/projects/arith/arith-block-1.webp"
                                 alt="arith-block-1"
-                                className="w-32 h-32 object-cover rounded-sm"
+                                className="w-20 h-20 sm:w-32 sm:h-32 object-cover rounded-sm"
                               />
                             </div>
                             
                             {/* Labels row */}
-                            <div className="flex justify-center gap-6 flex-wrap">
-                              <div className="w-32 text-center">
+                            <div className="flex justify-center gap-2">
+                              <div className="w-20 sm:w-32 text-center">
                                 <h4 className="font-medium text-sm">Original</h4>
                               </div>
                               
                               <div className="w-6"></div> {/* Spacer to match arrow width */}
                               
-                              <div className="w-32 text-center">
+                              <div className="w-20 sm:w-32 text-center">
                                 <h4 className="font-medium text-sm">After compression</h4>
                               </div>
                             </div>
@@ -473,11 +487,11 @@ export const Arith = () => {
                           <h3 className="text-xl font-semibold mb-4">Split Arrow Test</h3>
                           <div className="space-y-2">
                             {/* Images and arrow row */}
-                            <div className="flex items-center justify-center gap-6 flex-wrap">
+                            <div className="flex items-center justify-center gap-2">
                               <img
                                 src="/projects/arith/split-arrow-orig.webp"
                                 alt="split-arrow-orig"
-                                className="w-20 h-34 object-cover rounded-sm"
+                                className="w-14 sm:w-20 object-cover rounded-sm"
                               />
 
                               <MoveRight className="w-6 h-6 text-muted-foreground" />
@@ -485,7 +499,7 @@ export const Arith = () => {
                               <img
                                 src="/projects/arith/split-arrow-1.webp"
                                 alt="split-arrow-1"
-                                className="w-20 h-34 object-cover rounded-sm"
+                                className="w-14 sm:w-20 object-cover rounded-sm"
                               />
 
                               <MoveRight className="w-6 h-6 text-muted-foreground" />
@@ -493,7 +507,7 @@ export const Arith = () => {
                               <img
                                 src="/projects/arith/split-arrow-2.webp"
                                 alt="split-arrow-2"
-                                className="w-20 h-34 object-cover rounded-sm"
+                                className="w-14 sm:w-20 object-cover rounded-sm"
                               />
                               
                               <MoveRight className="w-6 h-6 text-muted-foreground" />
@@ -501,31 +515,31 @@ export const Arith = () => {
                               <img
                                 src="/projects/arith/split-arrow-correct.webp"
                                 alt="split-arrow-correct"
-                                className="w-20 h-34 object-cover rounded-sm"
+                                className="w-14 sm:w-20 object-cover rounded-sm"
                               />
                             </div>
                             
                             {/* Labels row */}
-                            <div className="flex justify-center gap-6 flex-wrap">
-                              <div className="w-20 text-center">
+                            <div className="flex justify-center gap-2">
+                              <div className="w-14 sm:w-20 text-center">
                                 <h4 className="font-medium text-sm">Original</h4>
                               </div>
                               
                               <div className="w-6"></div> {/* Spacer to match arrow width */}
 
-                              <div className="w-20 text-center">
+                              <div className="w-14 sm:w-20 text-center">
                                 <h4 className="font-medium text-sm">P1</h4>
                               </div>
                               
                               <div className="w-6"></div> {/* Spacer to match arrow width */}
 
-                              <div className="w-20 text-center">
+                              <div className="w-14 sm:w-20 text-center">
                                 <h4 className="font-medium text-sm">P2</h4>
                               </div>
 
                                 <div className="w-6"></div> {/* Spacer to match arrow width */}
                                 
-                              <div className="w-20 text-center">
+                              <div className="w-14 sm:w-20 text-center">
                                 <h4 className="font-medium text-sm">P3</h4>
                               </div>
                             </div>
@@ -550,65 +564,41 @@ export const Arith = () => {
                     <div className= "flex flex-col gap-4 h-full gradient-border-alt">
                         <div className="space-y-4  p-4 h-full flex flex-col">
                           <h3 className="text-xl font-semibold mb-4">Flower Test</h3>
-                          <div className="space-y-2">
-                            {/* Images and arrow row */}
-                            <div className="flex items-center justify-center gap-6 flex-wrap">
-                              <img
-                                src="/projects/arith/arith-flower-orig.webp"
-                                alt="arith-flower-orig"
-                                className="w-50 h-27 object-cover rounded-sm"
-                              />
-                              
+                          {/* Mobile: 2x2 grid */}
+                          <div className="grid grid-cols-2 gap-3 max-w-xs mx-auto sm:hidden">
+                            {[
+                              { src: "/projects/arith/arith-flower-orig.webp", alt: "arith-flower-orig", label: "Original" },
+                              { src: "/projects/arith/arith-flower-wrong.webp", alt: "arith-flower-wrong", label: "P1" },
+                              { src: "/projects/arith/arith-flower-wrong2.webp", alt: "arith-flower-wrong2", label: "P2" },
+                              { src: "/projects/arith/arith-flower-correct.webp", alt: "arith-flower-correct", label: "Final" },
+                            ].map(({ src, alt, label }) => (
+                              <div key={label} className="flex flex-col items-center gap-1">
+                                <img src={src} alt={alt} className="w-full aspect-square object-cover rounded-sm" />
+                                <span className="text-sm font-medium">{label}</span>
+                              </div>
+                            ))}
+                          </div>
+                          {/* Desktop: horizontal row */}
+                          <div className="hidden sm:block space-y-2">
+                            <div className="flex items-center justify-center gap-2">
+                              <img src="/projects/arith/arith-flower-orig.webp" alt="arith-flower-orig" className="w-28 h-20 object-cover rounded-sm" />
                               <MoveRight className="w-6 h-6 text-muted-foreground" />
-                              
-                              <img
-                                src="/projects/arith/arith-flower-wrong.webp"
-                                alt="arith-flower-wrong"
-                                className="w-50 h-27 object-cover rounded-sm"
-                              />
-
+                              <img src="/projects/arith/arith-flower-wrong.webp" alt="arith-flower-wrong" className="w-28 h-20 object-cover rounded-sm" />
                               <MoveRight className="w-6 h-6 text-muted-foreground" />
-                              
-                              <img
-                                src="/projects/arith/arith-flower-wrong2.webp"
-                                alt="arith-flower-wrong2"
-                                className="w-50 h-27 object-cover rounded-sm"
-                              />
-
+                              <img src="/projects/arith/arith-flower-wrong2.webp" alt="arith-flower-wrong2" className="w-28 h-20 object-cover rounded-sm" />
                               <MoveRight className="w-6 h-6 text-muted-foreground" />
-                              
-                              <img
-                                src="/projects/arith/arith-flower-correct.webp"
-                                alt="arith-flower-correct"
-                                className="w-50 h-27 object-cover rounded-sm"
-                              />
+                              <img src="/projects/arith/arith-flower-correct.webp" alt="arith-flower-correct" className="w-28 h-20 object-cover rounded-sm" />
                             </div>
-                            
-                            {/* Labels row */}
-                            <div className="flex justify-center gap-6 flex-wrap">
-                              <div className="w-50 text-center">
-                                <h4 className="font-medium text-sm">Original</h4>
-                              </div>
-                              
-                              <div className="w-6"></div> {/* Spacer to match arrow width */}
-
-                              <div className="w-50 text-center">
-                                <h4 className="font-medium text-sm">P1</h4>
-                              </div>
-                              
-                              <div className="w-6"></div> {/* Spacer to match arrow width */}
-
-                              <div className="w-50 text-center">
-                                <h4 className="font-medium text-sm">P2</h4>
-                              </div>
-                              
-                              <div className="w-6"></div> {/* Spacer to match arrow width */}
-                              
-                              <div className="w-50 text-center">
-                                <h4 className="font-medium text-sm">Final</h4>
-                              </div>
+                            <div className="flex justify-center gap-2">
+                              <div className="w-28 text-center"><h4 className="font-medium text-sm">Original</h4></div>
+                              <div className="w-6" />
+                              <div className="w-28 text-center"><h4 className="font-medium text-sm">P1</h4></div>
+                              <div className="w-6" />
+                              <div className="w-28 text-center"><h4 className="font-medium text-sm">P2</h4></div>
+                              <div className="w-6" />
+                              <div className="w-28 text-center"><h4 className="font-medium text-sm">Final</h4></div>
                             </div>
-                            </div>
+                          </div>
           
                             <div>
                           
