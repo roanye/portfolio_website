@@ -1,0 +1,55 @@
+[
+  {
+    "id": "petrichor",
+    "title": "Petrichor",
+    "type": "Original Composition",
+    "date": "Spring 2025",
+    "description": "Final project for my Computer Tools for Musicians class at Tufts. Produced in Digital Performer 11, featuring my vocals accompanied by synthesizers from Reason and MOTU.",
+    "audioSrc": "/music_production/Petrichor.wav",
+    "imageSrc": "/music_production/PetrichorImage.jpg",
+    "color": "#7A5E3B",
+    "links": []
+  },
+  {
+    "id": "close-your-eyes",
+    "title": "Close Your Eyes",
+    "type": "Original — Lofi Single",
+    "date": "2023",
+    "description": "From my two-song Lofi single 'Thinking of Her', produced in Logic Pro X. The story begins with two dancers separated by darkness. As the man dances, he spirals into a memory of a sunlit park where he briefly waltzes with his partner — then twists back into the dark alone.",
+    "audioSrc": "/music_production/CloseYourEyes.wav",
+    "imageSrc": "/music_production/ThinkingOfHerAlbumCover.png",
+    "color": "#3B5A7A",
+    "links": [
+      { "label": "Spotify", "url": "https://open.spotify.com/artist/5nLkNqueZ7b2ahL6188q5A?si=nfvUkmaCRfmCa5tU_tSi_w", "download": false }
+    ]
+  },
+  {
+    "id": "save-the-last-dance",
+    "title": "Save the Last Dance for Me",
+    "type": "A Cappella Arrangement",
+    "date": "Spring 2025",
+    "description": "My senior solo arrangement for the Tufts Beelzebubs — a 15-person TTBB a cappella group. We performed it in funny costumes, which is a Beelzebubs tradition.",
+    "audioSrc": null,
+    "imageSrc": null,
+    "color": "#4E7A3B",
+    "links": [
+      { "label": "Watch Performance", "url": "https://www.youtube.com/watch?v=nfBgXMBIV0E", "download": false },
+      { "label": "PDF Score", "url": "/arrangements/save-the-last-dance-for-me.pdf", "download": true },
+      { "label": ".mscz File", "url": "/arrangements/save-the-last-dance-for-me-final.mscz", "download": true }
+    ]
+  },
+  {
+    "id": "whats-new-scooby-doo",
+    "title": "What's New Scooby-Doo?",
+    "type": "A Cappella Arrangement",
+    "date": "Fall 2024",
+    "description": "Arranged for a 12-person TTBB a cappella group, appearing on the Tufts Beelzebubs EP 'School's Out', released December 2024.",
+    "audioSrc": null,
+    "imageSrc": null,
+    "color": "#7A3B5E",
+    "links": [
+      { "label": "PDF Score", "url": "/arrangements/whats-new-scoob.pdf", "download": true },
+      { "label": ".mscz File", "url": "/arrangements/whats-new-scoob.mscz", "download": true }
+    ]
+  }
+]
