@@ -1,4 +1,4 @@
-import { StarBackground } from "@/components/StarBackground";
+import { ParticleBackground } from "@/components/ParticleBackground";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import Magnifier from "react-magnifier";
 import { MoveRight, Download, FileMusic } from "lucide-react";
@@ -20,12 +20,12 @@ export const GTechPortfolio = () => {
       <ThemeToggle />
 
       {/* Background effects */}
-      <StarBackground />
+      <ParticleBackground />
 
       <section id="hero" className="py-24 px-4 relative">
-        <div className="container mx-auto max-w-8xl flex flex-col gap-6">
+        <div className="mx-auto w-full flex flex-col gap-6">
 
-        <div className="container bg-background/65 rounded-lg p-6">
+        <div className="mx-auto w-full bg-background/65 rounded-lg p-4 md:p-6">
             <h2 className="text-5xl md:text-7xl font-bold mb-12 text-center">
               <span className="text-primary">Georgia Tech Portfolio</span>
             </h2>
@@ -162,7 +162,7 @@ export const GTechPortfolio = () => {
                 </div>
         </div>
                 {/* Arith section */}
-                <div id="arith" className="container mx-auto max-w-8xl flex flex-col gap-6 mt-12">
+                <div id="arith" className="mx-auto w-full flex flex-col gap-6 mt-12">
                   <h2 className="text-5xl md:text-7xl font-bold mb-12 text-center">
                             <span className="text-primary">Arith</span>
                   </h2>
@@ -765,7 +765,7 @@ export const GTechPortfolio = () => {
         </div>
 
         {/* Videos Section */}
-        <div id="videos" className="container mx-auto max-w-8xl flex flex-col gap-8">
+        <div id="videos" className="mx-auto w-full flex flex-col gap-8">
           <h2 className="text-5xl md:text-7xl font-bold mb-6 text-center">
             <span className="text-primary">Videos</span>
           </h2>
@@ -809,7 +809,7 @@ export const GTechPortfolio = () => {
         </div>
 
         {/* Audio Recordings Section */}
-        <div id="audio" className="container mx-auto max-w-8xl flex flex-col gap-8 mt-12">
+        <div id="audio" className="mx-auto w-full flex flex-col gap-8 mt-12">
           <h2 className="text-5xl md:text-7xl font-bold mb-6 text-center">
             <span className="text-primary">Audio Recordings</span>
           </h2>
@@ -855,7 +855,7 @@ export const GTechPortfolio = () => {
         </div>
 
         {/* Arrangements Section */}
-        <div id="arrangements" className="container mx-auto max-w-8xl flex flex-col gap-8 mt-12">
+        <div id="arrangements" className="mx-auto w-full flex flex-col gap-8 mt-12">
           <h2 className="text-5xl md:text-7xl font-bold mb-6 text-center">
             <span className="text-primary">Arrangements</span>
           </h2>
