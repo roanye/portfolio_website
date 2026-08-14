@@ -20,11 +20,9 @@ export const AboutSection = () => {
 }, []);
 
         return (
-                <section id="about" className="py-24 px-4 relative">
-                <div className="container bg-background/65 rounded-lg p-6">
-                {" "}
-                <div
-                        className="container mx-auto max-w-5xl">
+                <section id="about" className="pt-6 pb-14 px-4 relative">
+                <div className="mx-auto max-w-5xl bg-background/65 rounded-lg p-4 md:p-6">
+                <div>
                         <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
                                 About <span className="text-primary">Me</span>
                         </h2>

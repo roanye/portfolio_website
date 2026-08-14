@@ -26,9 +26,9 @@ export const ContactSection = () => {
                 
         }
         return (
-                <section id="contact" className="py-24 px-4 relative bg-secondary/30">
-                <div className="container bg-background/65 rounded-lg p-6">
-                        <div className="container mx-auto max-w-5xl">
+                <section id="contact" className="pt-6 pb-14 px-4 relative bg-secondary/30">
+                <div className="mx-auto max-w-5xl bg-background/65 rounded-lg p-4 md:p-6">
+                        <div className="">
                                 <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
                                         Get in <span className="text-primary"> Touch</span>
                                 </h2>
