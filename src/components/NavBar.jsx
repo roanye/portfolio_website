@@ -170,19 +170,21 @@
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
 import { useState, useEffect, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 
 const navItems = [
     {name: "Home", href: "#hero"},
     {name: "About", href: "#about"},
     {name: "Skills", href: "#skills"},
     {name: "Projects", href: "#projects"},
-    {name: "Hobbies", href: "#hobbies"},
+    {name: "Hobbies", href: "/hobbies"},
     {name: "Contact", href: "#contact"}
 ]
 
 export const NavBar = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const navigate = useNavigate();
 
     // Throttled scroll handler to improve performance
     const handleScroll = useCallback(() => {
@@ -317,42 +319,29 @@ export const NavBar = () => {
         };
     }, [isMenuOpen]);
 
-    // Improved navigation handler with error handling
     const handleNavClick = useCallback((e, href) => {
         e.preventDefault();
         setIsMenuOpen(false);
-        
-        try {
-            // Always navigate to home page with hash for section navigation
-            if (href.startsWith('#')) {
-                // If we're already on the home page, just scroll
-                if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
-                    window.location.hash = href;
-                } else {
-                    // Navigate to home page with hash
-                    window.location.href = '/' + href;
-                }
+
+        if (href.startsWith('#')) {
+            if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
+                window.location.hash = href;
             } else {
                 window.location.href = '/' + href;
             }
-        } catch (error) {
-            console.error('Navigation error:', error);
-            // Fallback: navigate to home page with hash
-            if (href.startsWith('#')) {
-                window.location.href = '/' + href;
-            }
+        } else {
+            navigate(href);
         }
-    }, []);
+    }, [navigate]);
 
     return (
         <nav className={cn(
-            "fixed w-full z-40 transition-all duration-300",
-            // Different backgrounds for different states
-            isMenuOpen 
-                ? "py-3 bg-background"
-                : isScrolled 
-                    ? "py-3 bg-background/80 backdrop-blur-md shadow-lg"
-                    : "py-5 bg-background/20 backdrop-blur-sm"
+            "fixed w-full z-40 transition-colors duration-300 py-4",
+            isMenuOpen
+                ? "bg-background"
+                : isScrolled
+                    ? "bg-background/85 backdrop-blur-md shadow-lg"
+                    : "bg-background/10 backdrop-blur-sm"
         )}>
             <div className="container flex items-center justify-between">
                 
