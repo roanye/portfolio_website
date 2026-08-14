@@ -216,7 +216,7 @@ const BookSpine = ({ poem, onEnter, onLeave, onSelect }) => {
       style={{ cursor: "pointer" }}
       onMouseEnter={(e) => { setLifted(true); onEnter(poem, e.currentTarget.getBoundingClientRect()); }}
       onMouseLeave={() => { setLifted(false); onLeave(); }}
-      onClick={() => onSelect(poem)}
+      onClick={() => { onLeave(); onSelect(poem); }}
     >
       <div
         style={{
