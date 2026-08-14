@@ -13,8 +13,6 @@
   /* Animations */
 
   --animate-float: float 6s ease-in-out infinite;
-  /* Pulsates stars */
-  --animate-pulse-subtle: pulse-subtle 4s ease-in-out infinite;
 
   /* Fade in animations*/
   --animate-fade-in: fade-in 0.7s ease-out forwards;
@@ -23,9 +21,6 @@
   --animate-fade-in-delay-3: fade-in 0.7s ease-out 0.6s forwards;
   --animate-fade-in-delay-4: fade-in 0.7s ease-out 0.8s forwards;
 
-  /* Meteor animation */
-  --animate-meteor: meteor 5s linear infinite;
-
   @keyframes float {
     0%,
     100% {
@@ -33,15 +28,6 @@
     }
     50% {
       transform: translateY(-10px);
-    }
-  }
-  @keyframes pulse-subtle {
-    0%,
-    100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.8;
     }
   }
   @keyframes fade-in {
@@ -54,49 +40,63 @@
       transform: translateY(0);
     }
   }
-  @keyframes meteor {
-    0% {
-      transform: rotate(215deg) translateX(0);
-      opacity: 1;
-    }
-    70% {
-      opacity: 1;
-    }
-    100% {
-      transform: rotate(215deg) translateX(-500px);
-      opacity: 0;
-    }
+  @keyframes spin-record {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+  @keyframes quick-fade {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes journal-open {
+    from { opacity: 0; transform: scale(0.96) translateY(12px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  @keyframes card-pop {
+    0%   { transform: translateX(0) scale(1); }
+    40%  { transform: translateX(0) scale(1.06); }
+    100% { transform: translateX(0) scale(0) translateY(-40px); opacity: 0; }
   }
 
 }
 
 @layer base {
   :root {
-    --background: 210 40% 98%;
-    --foreground: 222 47% 11%;
+    --background: 150 18% 96%;
+    --foreground: 150 28% 14%;
 
     --card: 0 0% 100%;
-    --card-alt: 0 10% 70%;
-/* 
-    --primary: 250 47% 60%; */
-    --primary: 351 54% 37%;
-    --primary-foreground: 210 40% 98%;
+    --card-alt: 150 12% 90%;
 
-    --border: 214 32% 91%;
+    --primary: 350 58% 44%;
+    --primary-foreground: 0 0% 100%;
+
+    --border: 150 12% 84%;
+
+    --wood-back: hsl(25 60% 13%);
+    --wood-plank-light: hsl(33 62% 38%);
+    --wood-plank-mid: hsl(28 58% 26%);
+    --wood-plank-dark: hsl(24 62% 15%);
+    --wood-border: hsl(28 52% 24%);
   }
 
   .dark {
-    --background: 222 47% 4%;
-    --foreground: 213 31% 91%;
+    --background: 150 28% 4%;
+    --foreground: 55 12% 88%;
 
-    --card: 222 47% 8%;
-    --card-alt: 220 30% 20%;
+    --card: 150 22% 7%;
+    --card-alt: 150 18% 13%;
 
-    /* --primary: 250 65% 65%; */
-    --primary: 351 60% 45%;
-    --primary-foreground: 213 31% 91%;
+    --primary: 350 68% 58%;
+    --primary-foreground: 0 0% 100%;
 
-    --border: 217 33% 20%;
+    --border: 150 18% 18%;
+
+    --wood-back: hsl(25 55% 6%);
+    --wood-plank-light: hsl(28 40% 20%);
+    --wood-plank-mid: hsl(25 45% 12%);
+    --wood-plank-dark: hsl(22 50% 7%);
+    --wood-border: hsl(25 42% 10%);
   }
 
   * {
@@ -105,10 +105,12 @@
 
   html {
     @apply scroll-smooth;
+    scroll-padding-top: 4rem;
   }
 
   body {
     @apply bg-background text-foreground transition-colors duration-300;
+    font-family: "Outfit", sans-serif;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
@@ -136,7 +138,7 @@
 
 @utility text-glow {
   @apply relative;
-  text-shadow: 0 0 10px rgba(145, 43, 59, 0.5);
+  text-shadow: 0 0 10px rgba(200, 40, 40, 0.55);
 }
 
 @utility card-hover {
@@ -170,19 +172,9 @@
 
 /* Button to be changed later*/
 @utility cosmic-button {
-  @apply px-6 py-2 rounded-full bg-primary text-primary-foreground font-medium 
-        transition-all duration-300 hover:shadow-[0_0_10px_rgba(139,91,144,0.5)]
+  @apply px-6 py-2 rounded-full bg-primary text-primary-foreground font-medium
+        transition-all duration-300 hover:shadow-[0_0_12px_rgba(200,40,40,0.5)]
         hover:scale-105 active:scale-95;
-}
-
-@utility star {
-  @apply absolute rounded-full bg-white;
-  box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.4);
-}
-
-@utility meteor {
-  @apply absolute bg-linear-to-r from-white via-white to-transparent rounded-full;
-  box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.3);
 }
 
 
