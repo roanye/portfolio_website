@@ -1,6 +1,29 @@
 # Portfolio Website
 
-This repo contains code for my portfolio website at (INSERT LINK LATER). 
+This repo contains code for my portfolio website at [roanyeh.com](https://roanyeh.com).
+
+
+## Deployment
+
+Hosted on [Vercel](https://vercel.com), connected directly to this GitHub repo
+(`roanye/portfolio_website`).
+
+1. **Push to `main`.** Any commit merged/pushed to `main` triggers a new deploy.
+   (Other branches and PRs get their own preview deployment URLs.)
+2. **Picked up by Vercel.** Vercel's GitHub integration watches the repo, pulls
+   the new commit, and runs the build — detected automatically as a Vite app
+   (`npm run build`, output in `dist/`). No CI config needed on the repo side.
+3. **Hosted on Vercel.** The build output is deployed to Vercel's edge network
+   under the project's default `*.vercel.app` URL. `vercel.json` includes a
+   rewrite rule (`/(.*)` → `/index.html`) so client-side routes (React Router)
+   resolve correctly instead of 404ing on refresh/direct navigation.
+4. **Custom domain.** `roanyeh.com` was purchased through
+   [Squarespace Domains](https://domains.squarespace.com/), and added as a
+   custom domain in the Vercel project settings. DNS records for the domain
+   are managed in the Squarespace domain dashboard, pointed at Vercel (per
+   Vercel's custom domain setup instructions). Vercel handles SSL
+   automatically, and production deploys on `main` are what serves that
+   domain.
 
 
 # Credits
@@ -16,19 +39,3 @@ designing, organizing, and coding frontend software with ReactJS and Tailwind CS
 To ensure that images take up the least amount of space as possible, use
 [Squoosh](https://squoosh.app/editor). Select **resize** with **width** set to 
 **920 px** using the **Lanczos3** method and convert to **webp**.
-
-
-
-
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
