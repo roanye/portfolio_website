@@ -81,7 +81,7 @@ export const AboutSection = () => {
 
                                                 <a href="https://open.spotify.com/artist/5nLkNqueZ7b2ahL6188q5A?si=nfvUkmaCRfmCa5tU_tSi_w" 
                                                 target="_blank"
-                                                className="cosmic-button flex items-center space-x-2"
+                                                className="cosmic-button flex items-center justify-center space-x-2"
                                                 >
                                                         {" "}
                                                         <Music className="" />

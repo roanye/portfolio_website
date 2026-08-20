@@ -116,11 +116,17 @@ export const ParticleBackground = () => {
       );
     };
 
-    const tick = () => {
+    let lastTime = performance.now();
+
+    const tick = (now) => {
+      const dt = Math.min(now - lastTime, 100);
+      lastTime = now;
+      const t = dt / (1000 / 60);
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       for (const p of particles) {
-        p.opacityPhase += p.opacitySpeed;
+        p.opacityPhase += p.opacitySpeed * t;
         const opacity = Math.min(
           Math.max(p.opacityBase + Math.sin(p.opacityPhase) * p.opacityAmp, 0),
           1
@@ -135,9 +141,9 @@ export const ParticleBackground = () => {
         ctx.fillStyle = `rgba(${r},${g},${b},${opacity})`;
 
         if (p.type === "orbit") {
-          p.angle += p.angleSpeed;
-          p.centerX += p.driftX;
-          p.centerY += p.driftY;
+          p.angle += p.angleSpeed * t;
+          p.centerX += p.driftX * t;
+          p.centerY += p.driftY * t;
           p.x = p.centerX + Math.cos(p.angle) * p.radius;
           p.y = p.centerY + Math.sin(p.angle) * p.radius;
 
@@ -148,9 +154,9 @@ export const ParticleBackground = () => {
           if (p.centerX < -60) p.centerX = canvas.width + 60;
           else if (p.centerX > canvas.width + 60) p.centerX = -60;
         } else {
-          p.phase += p.phaseSpeed;
-          p.x += p.vx + Math.sin(p.phase) * p.drift;
-          p.y += p.vy;
+          p.phase += p.phaseSpeed * t;
+          p.x += (p.vx + Math.sin(p.phase) * p.drift) * t;
+          p.y += p.vy * t;
 
           if (p.y < -8) {
             p.y = canvas.height + 8;
@@ -160,7 +166,7 @@ export const ParticleBackground = () => {
           else if (p.x > canvas.width + 8) p.x = -8;
         }
 
-        ctx.fillRect(Math.round(p.x), Math.round(p.y), p.size, p.size);
+        ctx.fillRect(p.x, p.y, p.size, p.size);
         ctx.shadowBlur = 0;
       }
 
@@ -169,7 +175,7 @@ export const ParticleBackground = () => {
 
     resize();
     build();
-    tick();
+    rafId = requestAnimationFrame(tick);
 
     window.addEventListener("resize", resize);
 
