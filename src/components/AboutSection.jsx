@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Briefcase, Code, Music, ListMusic } from "lucide-react";
+import { ClipboardList, Code, Linkedin, Music, ListMusic, Users } from "lucide-react";
 
 export const AboutSection = () => {
         const [isDarkMode, setIsDarkMode] = useState(true);
@@ -49,18 +49,28 @@ export const AboutSection = () => {
                                                 and problem-solver.
                                         </p>
 
-                                        <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center">
-                                                <a href="#contact" className="cosmic-button"> 
+                                        <div className="flex flex-wrap items-center gap-4 pt-4 justify-center">
+                                                <a href="#contact" className="cosmic-button whitespace-nowrap">
                                                         {" "}
                                                         Get In Touch
                                                 </a>
 
-                                                <a href="/resume/Roan_Yeh_Resume_2025_fall.pdf"
-                                                download 
-                                                className="px-6 py-2 rounded-full border border-primary text-primary hover:bg-primary/10 transition-colors duration-300"
+                                                <a href="/resume/Roan_Yeh_Resume_2026_updated.pdf"
+                                                download
+                                                className="px-6 py-2 rounded-full border border-primary text-primary hover:bg-primary/10 transition-colors duration-300 whitespace-nowrap"
                                                 >
                                                         {" "}
                                                         Download Resume
+                                                </a>
+
+                                                <a href="https://www.linkedin.com/in/roan-yeh-4340aa260/"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                title="View my work experience on LinkedIn"
+                                                aria-label="View my work experience on LinkedIn"
+                                                className="h-10 w-10 rounded-full border border-primary text-primary hover:bg-primary/10 transition-colors duration-300 flex items-center justify-center shrink-0"
+                                                >
+                                                        <Linkedin className="h-4 w-4" />
                                                 </a>
                                         </div>
                                         <h3 className="text-2xl font-semibold"> Avid Music Producer and Listener</h3>
@@ -68,8 +78,8 @@ export const AboutSection = () => {
                                         <p className="text-muted-foreground text-left">
                                                 After being bribed by my mom with two crack-open geodes to audition for the 
                                                 National Children's Chorus at age 8, I've been hooked on music. 
-                                                From the first song I listen to get out of bed in the morning, 
-                                                to the trips and performances I had with my a capella group 
+                                                From the first song I listen to when I get out of bed in the morning, 
+                                                to the trips and performances I had with my a cappella group 
                                                 The Tufts Beelzebubs, to the overdone shower karaoke that drives my 
                                                 housemates insane, to the late-night music production sessions I lose 
                                                 precious hours of sleep to, music shapes who I am. 
@@ -90,7 +100,6 @@ export const AboutSection = () => {
                                         </div>
                                 </div>
 
-                                {/* PUT INFO FOR EACH ELEMENT code, users (how interact with users or something that makes sense CHANGE LATER), work experience, etc*/}
                                 <div className="grid grid-cols-1 gap-6">
                                         <div className="gradient-border p-6 card-hover">
                                                 <div className="flex items-start gap-4">
@@ -102,7 +111,7 @@ export const AboutSection = () => {
                                                                         Backend Development
                                                                 </h4>
                                                                 <p className="text-muted-foreground">
-                                                                        Developing efficient and reliable backend systems and APIs to support modern applications.
+                                                                        Building efficient, reliable backend systems and APIs.
                                                                 </p>
                                                         </div>
                                                 </div>
@@ -110,20 +119,32 @@ export const AboutSection = () => {
                                         <div className="gradient-border p-6 card-hover">
                                                 <div className="flex items-start gap-4">
                                                         <div className="p-3 rounded-full bg-primary/10">
-                                                                <Briefcase className="h-6 w-6 text-primary"/>
+                                                                <ClipboardList className="h-6 w-6 text-primary"/>
                                                         </div>
                                                         <div className="text-left">
                                                                 <h4 className="font-semibold text-lg">
-                                                                        Work Experience
+                                                                        Project Management
                                                                 </h4>
                                                                 <p className="text-muted-foreground">
-                                                                        Gained hands-on experience across software engineering and 
-                                                                        research roles, from designing backend APIs 
-                                                                        and deploying machine learning services at Bumble, 
-                                                                        to conducting environmental research and data analysis at 
-                                                                        the UCLA Institute for Carbon Management. Currently building a 
-                                                                        marketplace app to reduce campus waste 
-                                                                        through lending and borrowing.
+                                                                        Scoping requirements and keeping projects on track from start to ship.
+                                                                </p>
+                                                        </div>
+                                                </div>
+                                        </div>
+
+                                        <div className="gradient-border p-6 card-hover">
+                                                <div className="flex items-start gap-4">
+                                                        <div className="p-3 rounded-full bg-primary/10">
+                                                                <Users className="h-6 w-6 text-primary"/>
+                                                        </div>
+                                                        <div className="text-left">
+                                                                <h4 className="font-semibold text-lg">
+                                                                        Client-Facing Engineering
+                                                                </h4>
+                                                                <p className="text-muted-foreground">
+                                                                        From hotel front desk service to gathering requirements as the sole
+                                                                        developer at Fenton & Ross, I'm at home working directly with the
+                                                                        people who use what I build.
                                                                 </p>
                                                         </div>
                                                 </div>
@@ -263,6 +284,36 @@ export const AboutSection = () => {
                                                 <p className="text-muted-foreground mx-auto max-w-xl text-center">
                                                 Some more of my Tufts friends and I at the Keukenhof Gardens in the Netherlands
                                                 during our 2025 spring break trip.
+                                                </p>
+                                                </div>
+                                        </div>
+                                </div>
+                                <div className="gradient-border card-hover rounded-lg overflow-hidden">
+                                        {/* Images at the top */}
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+                                                <img
+                                                src="/pictures/friend-pic3.webp"
+                                                alt="friend-pic3"
+                                                className="w-full aspect-[3/2] object-cover"
+                                                />
+                                                <img
+                                                src="/pictures/friend-pic4.webp"
+                                                alt="friend-pic4"
+                                                className="w-full aspect-[3/2] object-cover"
+                                                />
+                                        </div>
+
+                                        {/* Text content below */}
+                                        <div className="text-left p-4">
+                                                <h4 className="text-center font-semibold text-2xl mb-2">My Friends pt. 3</h4>
+                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+                                                <p className="text-muted-foreground mx-auto max-w-xl text-center">
+                                                The Catan Squad pre Sammy Virji at the Historic Sears Building in LA.
+
+
+                                                </p>
+                                                <p className="text-muted-foreground mx-auto max-w-xl text-center">
+                                                Theo, Ed, and I at Nicky Romero at Academy LA. The techiness knows no bounds.
                                                 </p>
                                                 </div>
                                         </div>

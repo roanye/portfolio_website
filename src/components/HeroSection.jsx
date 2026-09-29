@@ -30,10 +30,10 @@ export const HeroSection = () => {
                         <p 
                          className="text-lg md:text-xl text-muted-foreground max-2-2xl mx-auto opacity-0 animate-fade-in-delay-3"
                         >
-                                I create robust digital experiences with modern technologies.
-                                Specializing in backend development, I build systems 
-                                that are both scalable and reliable. I'm also a passionate 
-                                singer and music producer.
+                                I'm a recent Tufts CS graduate specializing in backend development, with experience 
+                                working directly with the people who use what I build. I'm also a singer and music 
+                                producer. This website serves as a showcase of my professional and personal work. 
+                                Feel free to explore and reach out if you'd like to collaborate or connect!
                         </p>
                         <div className="pt-4 opacity-0 animate-fade-in-delay-4">
                                 <a href="#projects" className="cosmic-button">
