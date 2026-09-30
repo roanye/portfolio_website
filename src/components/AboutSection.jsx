@@ -313,7 +313,7 @@ export const AboutSection = () => {
 
                                                 </p>
                                                 <p className="text-muted-foreground mx-auto max-w-xl text-center">
-                                                Theo, Ed, and I vs. Nicky Romero at Academy LA. The techiness knows no bounds.
+                                                Theo, Ed, and me vs. Nicky Romero at Academy LA. The techiness knows no bounds.
                                                 </p>
                                                 </div>
                                         </div>
