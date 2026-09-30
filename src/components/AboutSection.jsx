@@ -79,7 +79,7 @@ export const AboutSection = () => {
                                                 After being bribed by my mom with two crack-open geodes to audition for the 
                                                 National Children's Chorus at age 8, I've been hooked on music. 
                                                 From the first song I listen to when I get out of bed in the morning, 
-                                                to the trips and performances I had with my a cappella group 
+                                                to the trips and performances I've had with my a cappella group 
                                                 The Tufts Beelzebubs, to the overdone shower karaoke that drives my 
                                                 housemates insane, to the late-night music production sessions I lose 
                                                 precious hours of sleep to, music shapes who I am. 
@@ -313,7 +313,7 @@ export const AboutSection = () => {
 
                                                 </p>
                                                 <p className="text-muted-foreground mx-auto max-w-xl text-center">
-                                                Theo, Ed, and I at Nicky Romero at Academy LA. The techiness knows no bounds.
+                                                Theo, Ed, and I vs. Nicky Romero at Academy LA. The techiness knows no bounds.
                                                 </p>
                                                 </div>
                                         </div>
