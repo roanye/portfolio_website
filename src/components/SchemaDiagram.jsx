@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import mermaid from "mermaid";
 import Magnifier from "react-magnifier";
 
@@ -45,6 +45,34 @@ const widenEdgeLabels = (svgString) => {
 
 export const SchemaDiagram = ({ definition, isDarkMode }) => {
         const [svgDataUri, setSvgDataUri] = useState(null);
+        const containerRef = useRef(null);
+        const [containerWidth, setContainerWidth] = useState(null);
+
+        // react-magnifier's zoom lens scales its background-image by `zoomFactor * displayedWidth`,
+        // so a fixed zoomFactor produces dramatically less magnification on a narrow phone screen
+        // than on a wide desktop one. Measuring the actual rendered width and scaling zoomFactor
+        // inversely keeps the effective magnification roughly constant across screen sizes.
+        useEffect(() => {
+                // The container only exists once svgDataUri resolves and we stop rendering the
+                // "Loading diagram..." placeholder - re-run this whenever that flips so the
+                // observer actually attaches to the real element instead of firing once at
+                // mount (while containerRef.current is still null) and never again.
+                const el = containerRef.current;
+                if (!el) return;
+                const observer = new ResizeObserver((entries) => {
+                        for (const entry of entries) {
+                                setContainerWidth(entry.contentRect.width);
+                        }
+                });
+                observer.observe(el);
+                return () => observer.disconnect();
+        }, [svgDataUri]);
+
+        const baseZoomFactor = 0.5;
+        const baseWidth = 1400;
+        const zoomFactor = containerWidth
+                ? Math.min(3, Math.max(baseZoomFactor, baseZoomFactor * (baseWidth / containerWidth)))
+                : baseZoomFactor;
 
         useEffect(() => {
                 let cancelled = false;
@@ -125,12 +153,12 @@ export const SchemaDiagram = ({ definition, isDarkMode }) => {
         }
 
         return (
-                <div className="flex justify-center py-4">
+                <div ref={containerRef} className="flex justify-center py-4">
                         <Magnifier
                                 src={svgDataUri}
                                 mgWidth={250}
                                 mgHeight={250}
-                                zoomFactor={.5}
+                                zoomFactor={zoomFactor}
                                 mgShape="square"
                                 className="w-full"
                         />
