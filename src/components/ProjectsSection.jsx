@@ -15,6 +15,15 @@ const projects = [
                 demoUrl: "#",
                 githubUrl: "#",
         },
+        {
+                id: 2,
+                title: "Handdown",
+                description: "A campus marketplace app for students to exchange items, with a FastAPI backend, a Firebase/Supabase data layer, and a swipe-based recommendation feed.",
+                image: "/projects/handdown/handdown-logo.png",
+                tags: ["Python", "FastAPI", "Firebase", "Supabase"],
+                demoUrl: "#",
+                githubUrl: "#",
+        },
 
 
 ]
@@ -37,15 +46,15 @@ export const ProjectsSection = () => {
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                                         {projects.map((project, key) => (
-                                                <div 
-                                                key={key} 
-                                                className="group bg-card rounded-lg overflow-hidden shadow-xs card-hover"
+                                                <div
+                                                key={key}
+                                                className="group bg-card rounded-lg overflow-hidden shadow-xs card-hover flex flex-col h-full"
                                                 >
-                                                        <div className="h-48 overflow-hidden">
+                                                        <div className="h-48 overflow-hidden shrink-0">
                                                                 <img src={project.image} alt={project.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"/>
                                                         </div>
-                                                        <div className="p-6">
-                                                                <div className="flex flex-wrap gap-2 mb-4">
+                                                        <div className="p-6 flex flex-col flex-1">
+                                                                <div className="flex flex-wrap content-start items-start gap-2 mb-4 min-h-[60px]">
                                                                         {project.tags.map((tag) => (
                                                                                 <span className="px-2 py-1 border text-xs font-medium rounded-full bg-secondary text-secondary-foreground">{tag}</span>
 
@@ -54,7 +63,7 @@ export const ProjectsSection = () => {
                                                                 <h3 className="text-xl font-semibold mb-1">{project.title}</h3>
                                                                 <p className="text-muted-foreground text-sm mb-4">{project.description}</p>
 
-                                                                <div className="flex justify-center items-center">
+                                                                <div className="flex justify-center items-center mt-auto pt-2">
                                                                         <Link
                                                                          to={`/projects/${project.title.toLowerCase()}`}
                                                                          className="flex items-center space-x-2 cosmic-button"

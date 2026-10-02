@@ -74,7 +74,7 @@ export const Handdown = () => {
                               <span className="text-primary font-semibold">Project Timeline:</span> Sept 2024 - Sept 2025
                             </p>
                             <p className="text-muted-foreground">
-                              <span className="text-primary font-semibold">Skills:</span> Python, FastAPI, SQL, NoSQL ... modify this later
+                              <span className="text-primary font-semibold">Skills:</span> Python, FastAPI, Firebase (Firestore &amp; Storage), Supabase (Postgres), SQL, Docker, Git
                             </p>
                           </div>
 
@@ -96,14 +96,21 @@ export const Handdown = () => {
                             down to the people who need them next.
                           </p>
                           <p className="text-muted-foreground">
-                            We started with market research. The obvious comparisons were Facebook Marketplace, 
-                            OfferUp, Craigslist, and Nextdoor. Then we looked at a category of apps college 
-                            students were already hooked on: dating apps. Any marketplace needs a standard search, 
-                            but we had freedom in how users explore listings, so we took inspiration from Tinder and 
-                            built a swipe feed. Search works when you know exactly what you want; it's easy to filter 
-                            for couches if you need a couch. For students who just want to browse, though, a crowded 
-                            results page invites decision paralysis. The swipe feed shows one listing at a time with 
+                            We started with market research. The obvious comparisons were Facebook Marketplace,
+                            OfferUp, Craigslist, and Nextdoor. Then we looked at a category of apps college
+                            students were already hooked on: dating apps. Any marketplace needs a standard search,
+                            but we had freedom in how users explore listings, so we took inspiration from Tinder and
+                            built a swipe feed. Search works when you know exactly what you want; it's easy to filter
+                            for couches if you need a couch. For students who just want to browse, though, a crowded
+                            results page invites decision paralysis. The swipe feed shows one listing at a time with
                             only a few things you can do with it.
+                          </p>
+                          <p className="text-muted-foreground">
+                            Every post covers both sides of the exchange: a <span className="text-foreground font-medium">Listing</span> can
+                            be posted to lend or sell, while a <span className="text-foreground font-medium">Request</span> can be posted to
+                            borrow or buy. The recommendation algorithm deliberately interleaves listings and
+                            requests in the swipe feed at a tunable ratio, so the feed surfaces both supply and
+                            demand instead of just one side of the marketplace.
                           </p>
                           {/* Separator Line */}
                         </div>
@@ -391,9 +398,13 @@ export const Handdown = () => {
                                 <td className="py-3 pr-4 font-semibold text-foreground align-top whitespace-nowrap">Reconsider the database choice given how relational the data actually was</td>
                                 <td className="py-3 align-top">Listings, profiles, conversations, and messages all naturally wanted foreign keys and joins, which we were fighting against in a NoSQL document store.</td>
                               </tr>
-                              <tr>
+                              <tr className="border-b border-border">
                                 <td className="py-3 pr-4 font-semibold text-foreground align-top whitespace-nowrap">Treat secrets as environment variables from day one</td>
                                 <td className="py-3 align-top">Instead of retrofitting it later.</td>
+                              </tr>
+                              <tr>
+                                <td className="py-3 pr-4 font-semibold text-foreground align-top whitespace-nowrap">Compress media before upload</td>
+                                <td className="py-3 align-top">We uploaded listing and profile images straight from the device with no compression, which slowed down loading and degraded the app's overall feel.</td>
                               </tr>
                             </tbody>
                           </table>
