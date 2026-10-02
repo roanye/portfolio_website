@@ -61,7 +61,7 @@ export const Arith = () => {
                               <span className="text-primary font-semibold">Team Size:</span> 2 people (shoutout Winston Hsiao)
                             </p>
                             <p className="text-muted-foreground">
-                              <span className="text-primary font-semibold">Date Completed:</span> March 7, 2024
+                              <span className="text-primary font-semibold">Date Completed:</span> Mar 2024
                             </p>
                             <p className="text-muted-foreground">
                               <span className="text-primary font-semibold">Skills:</span> C, Bit-packing
