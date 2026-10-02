@@ -1,10 +1,168 @@
 import { ParticleBackground } from "@/components/ParticleBackground";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { MoveRight, ArrowDown } from "lucide-react";
+import { SchemaDiagram } from "@/components/SchemaDiagram";
+import { ArrowDown } from "lucide-react";
 import { SiReact, SiPython, SiFastapi, SiFirebase, SiGmail } from "react-icons/si";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+
+// Mermaid sanitizes HTML labels with a plain-HTML profile that strips embedded <svg>
+// elements, so the key glyph is baked into a CSS background-image data URI on a <span>
+// instead - a style-attribute value survives sanitization where an <svg> tag doesn't.
+const keyIcon = (colors) => {
+  const raw = `<svg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 24 24' fill='none' stroke='${colors.primary}' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='m15.5 7.5 2.3 2.3a1 1 0 0 0 1.4 0l2.1-2.1a1 1 0 0 0 0-1.4L19 4'/><path d='m21 2-9.6 9.6'/><circle cx='7.5' cy='15.5' r='5.5'/></svg>`;
+  const dataUri = `data:image/svg+xml;base64,${btoa(raw)}`;
+  return `<span style='display:inline-block;width:11px;height:11px;background-image:url(${dataUri});background-repeat:no-repeat;background-size:contain;vertical-align:-1px;margin-right:4px;'></span>`;
+};
+
+const entityNode = (id, name, fields, colors) => {
+  const icon = keyIcon(colors);
+  const rows = fields
+    .map(
+      (f) =>
+        `<tr><td style='padding:3px 8px;color:${colors.mutedForeground};font-size:11px;text-align:left;border-top:1px solid ${colors.border};white-space:nowrap;'>${f.type}</td><td style='padding:3px 8px;color:${colors.foreground};font-size:12px;text-align:left;border-top:1px solid ${colors.border};white-space:nowrap;'>${f.key ? icon : ""}${f.name}</td></tr>`
+    )
+    .join("");
+  // Mermaid's label wrapper div centers inline content via text-align, but our payload
+  // is a block-level <table> which text-align can't center - it just sits flush at its
+  // natural size, leaving uneven padding whenever mermaid allocates a slightly larger box.
+  // width:100% makes the table always fill that box so the padding stays consistent.
+  const label = `<table style='border-collapse:collapse;background:${colors.card};width:100%;'><tr><td colspan='2' style='padding:6px 10px;font-weight:700;font-size:13px;color:${colors.primary};background:${colors.cardAlt};text-align:left;'>${name}</td></tr>${rows}</table>`;
+  return `${id}["${label}"]`;
+};
+
+const publicSchemaDiagram = (colors) => `
+flowchart TD
+  ${entityNode("AUTH_USERS", "AUTH_USERS", [{ type: "uuid", name: "id", key: true }], colors)}
+  ${entityNode("UNIVERSITIES", "UNIVERSITIES", [
+    { type: "text", name: "code", key: true },
+    { type: "text", name: "name" },
+    { type: "text", name: "email_domain" },
+    { type: "text", name: "schema_name" },
+    { type: "point", name: "location" },
+  ], colors)}
+  ${entityNode("PROFILES", "PROFILES", [
+    { type: "uuid", name: "uid", key: true },
+    { type: "text", name: "university_code" },
+  ], colors)}
+  ${entityNode("ROLES", "ROLES", [
+    { type: "int", name: "id", key: true },
+    { type: "text", name: "role_name" },
+    { type: "jsonb", name: "permissions" },
+  ], colors)}
+  ${entityNode("TAGS", "TAGS", [
+    { type: "int", name: "id", key: true },
+    { type: "text", name: "tag_name" },
+  ], colors)}
+  ${entityNode("LISTING_TYPES", "LISTING_TYPES", [
+    { type: "int", name: "id", key: true },
+    { type: "text", name: "name" },
+  ], colors)}
+  ${entityNode("CONVERSATION_ROLES", "CONVERSATION_ROLES", [
+    { type: "int", name: "role_id", key: true },
+    { type: "text", name: "role_name" },
+  ], colors)}
+
+  AUTH_USERS -->|id = uid| PROFILES
+  UNIVERSITIES -->|code = university_code| PROFILES
+`;
+
+const campusSchemaDiagram = (colors) => `
+flowchart TD
+  ${entityNode("AUTH_USERS", "AUTH_USERS", [{ type: "uuid", name: "id", key: true }], colors)}
+  ${entityNode("PUBLIC_ROLES", "public.ROLES", [{ type: "int", name: "id", key: true }], colors)}
+  ${entityNode("PUBLIC_TAGS", "public.TAGS", [{ type: "int", name: "id", key: true }], colors)}
+  ${entityNode("PUBLIC_LISTING_TYPES", "public.LISTING_TYPES", [{ type: "int", name: "id", key: true }], colors)}
+  ${entityNode("PUBLIC_CONVERSATION_ROLES", "public.CONVERSATION_ROLES", [{ type: "int", name: "role_id", key: true }], colors)}
+  ${entityNode("PROFILES", "PROFILES", [
+    { type: "uuid", name: "uid", key: true },
+    { type: "text", name: "university_student_id" },
+    { type: "text", name: "email" },
+    { type: "text", name: "fname" },
+    { type: "text", name: "lname" },
+    { type: "text", name: "profile_pic_url" },
+    { type: "int", name: "role_id" },
+    { type: "int", name: "region_id" },
+    { type: "int", name: "major_id" },
+    { type: "numeric", name: "rating" },
+    { type: "int", name: "entry_year" },
+    { type: "timestamp", name: "time_created" },
+    { type: "timestamp", name: "time_updated" },
+  ], colors)}
+  ${entityNode("MAJORS", "MAJORS", [
+    { type: "int", name: "major_id", key: true },
+    { type: "text", name: "major_name" },
+  ], colors)}
+  ${entityNode("CAMPUS_REGIONS", "CAMPUS_REGIONS", [
+    { type: "int", name: "region_id", key: true },
+    { type: "text", name: "region_name" },
+    { type: "text", name: "description" },
+    { type: "geometry", name: "geom" },
+    { type: "timestamp", name: "time_created" },
+    { type: "timestamp", name: "time_updated" },
+  ], colors)}
+  ${entityNode("LISTINGS", "LISTINGS", [
+    { type: "uuid", name: "listing_id", key: true },
+    { type: "uuid", name: "offering_uid" },
+    { type: "int", name: "listing_type_id" },
+    { type: "int", name: "region_id" },
+    { type: "text", name: "title" },
+    { type: "text", name: "description" },
+    { type: "numeric", name: "price" },
+    { type: "text", name: "condition" },
+    { type: "timestamp", name: "time_created" },
+    { type: "timestamp", name: "time_updated" },
+  ], colors)}
+  ${entityNode("LISTING_IMAGES", "LISTING_IMAGES", [
+    { type: "uuid", name: "image_id", key: true },
+    { type: "uuid", name: "listing_id" },
+    { type: "text", name: "image_url" },
+    { type: "int", name: "position" },
+    { type: "timestamp", name: "time_created" },
+    { type: "timestamp", name: "time_updated" },
+  ], colors)}
+  ${entityNode("LISTING_TAGS", "LISTING_TAGS", [
+    { type: "uuid", name: "listing_id" },
+    { type: "int", name: "tag_id" },
+  ], colors)}
+  ${entityNode("CONVERSATIONS", "CONVERSATIONS", [
+    { type: "uuid", name: "conversation_id", key: true },
+    { type: "timestamp", name: "time_created" },
+  ], colors)}
+  ${entityNode("CONVERSATION_PARTICIPANTS", "CONVERSATION_PARTICIPANTS", [
+    { type: "uuid", name: "conversation_id" },
+    { type: "uuid", name: "participant" },
+    { type: "int", name: "role_id" },
+    { type: "timestamp", name: "last_read_at" },
+  ], colors)}
+  ${entityNode("MESSAGES", "MESSAGES", [
+    { type: "uuid", name: "message_id", key: true },
+    { type: "uuid", name: "conversation_id" },
+    { type: "uuid", name: "sender_id" },
+    { type: "text", name: "body" },
+    { type: "timestamp", name: "time_created" },
+    { type: "timestamp", name: "deleted_at" },
+  ], colors)}
+
+  AUTH_USERS -->|id = uid| PROFILES
+  PUBLIC_ROLES -->|role_id| PROFILES
+  MAJORS -->|major_id| PROFILES
+  CAMPUS_REGIONS -->|region_id| PROFILES
+  PROFILES -->|offering_uid| LISTINGS
+  PUBLIC_LISTING_TYPES -->|listing_type_id| LISTINGS
+  CAMPUS_REGIONS -->|region_id| LISTINGS
+  LISTINGS -->|listing_id| LISTING_IMAGES
+  LISTINGS -->|listing_id| LISTING_TAGS
+  PUBLIC_TAGS -->|tag_id| LISTING_TAGS
+  CONVERSATIONS -->|conversation_id| CONVERSATION_PARTICIPANTS
+  PROFILES -->|participant| CONVERSATION_PARTICIPANTS
+  PUBLIC_CONVERSATION_ROLES -->|role_id| CONVERSATION_PARTICIPANTS
+  CONVERSATIONS -->|conversation_id| MESSAGES
+  PROFILES -->|sender_id| MESSAGES
+`;
 
 export const Handdown = () => {
+  const [isDarkMode, setIsDarkMode] = useState(true);
+
   // Scroll to top when component mounts
     useEffect(() => {
         window.scrollTo({
@@ -12,6 +170,17 @@ export const Handdown = () => {
             left: 0,
             behavior: 'smooth'
         });
+    }, []);
+
+    useEffect(() => {
+        const updateTheme = () => {
+            const storedTheme = localStorage.getItem("theme");
+            setIsDarkMode(storedTheme !== "light");
+        };
+
+        updateTheme();
+        window.addEventListener("storage", updateTheme);
+        return () => window.removeEventListener("storage", updateTheme);
     }, []);
 
   return (
@@ -449,6 +618,35 @@ export const Handdown = () => {
                               </tr>
                             </tbody>
                           </table>
+                        </div>
+                      </div>
+
+                      <div>
+                        <h4 className="text-xl font-semibold text-primary mb-2">Database Schema</h4>
+                        <p className="mb-4">
+                          The Supabase schema splits into a shared public schema and a dedicated schema per
+                          university (e.g. ucberkeley). Auth is handled entirely by Supabase Auth (auth.users)
+                          rather than a hand-rolled table, which I didn't build myself.
+                        </p>
+                        <p className="text-primary text-glow mb-4 text-sm">
+                          Hover your mouse (or tap and drag on mobile) over a diagram for a magnifying glass to
+                          zoom into the field details.
+                        </p>
+
+                        <div className="gradient-border-alt rounded-lg p-4 mb-6">
+                          <h5 className="text-lg font-semibold text-foreground mb-1">
+                            Public Schema
+                          </h5>
+                          <p className="text-sm text-muted-foreground mb-2">Shared across every university</p>
+                          <SchemaDiagram definition={publicSchemaDiagram} isDarkMode={isDarkMode} />
+                        </div>
+
+                        <div className="gradient-border-alt rounded-lg p-4">
+                          <h5 className="text-lg font-semibold text-foreground mb-1">
+                            Campus Schema
+                          </h5>
+                          <p className="text-sm text-muted-foreground mb-2">Per-university, e.g. ucberkeley</p>
+                          <SchemaDiagram definition={campusSchemaDiagram} isDarkMode={isDarkMode} />
                         </div>
                       </div>
 
