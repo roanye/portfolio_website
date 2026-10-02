@@ -325,7 +325,17 @@ export const NavBar = () => {
 
         if (href.startsWith('#')) {
             if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
-                window.location.hash = href;
+                // Scroll directly instead of only setting the hash: if the hash is already
+                // the same (e.g. the user scrolled away manually without it changing), setting
+                // it again doesn't fire 'hashchange', so the scroll-on-hashchange listener
+                // never runs and the click appears to do nothing.
+                const element = document.getElementById(href.slice(1));
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+                }
+                if (window.location.hash !== href) {
+                    window.history.pushState(null, '', href);
+                }
             } else {
                 window.location.href = '/' + href;
             }
