@@ -298,7 +298,7 @@ export const Arith = () => {
                       </p>
 
                       <p className="text-primary text-glow mb-2 text-sm">
-                        Hover your mouse over the image for a magnifying glass!
+                        Hover your mouse (or tap and drag on mobile) over a diagram for a magnifying glass!
                       </p>
 
                       <div className="gradient-border-alt">
