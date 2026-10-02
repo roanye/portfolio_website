@@ -94,7 +94,7 @@ export const ContactSection = () => {
                                                                 <div>
                                                                 <h4 className="font-medium"> Email</h4>
                                                                         <a
-                                                                        href="mailto:roanpyeh@gmail.com"
+                                                                        href="mailto:roanpyeh+portfolio@gmail.com"
                                                                         className="text-muted-foreground hover:text-primary transition-colors"
                                                                         >
                                                                         roanpyeh+portfolio@gmail.com
@@ -167,7 +167,7 @@ export const ContactSection = () => {
                                                                          value={formData.name}
                                                                          onChange={handleChange}
                                                                          className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outline-hidden foucs:ring-2 focus:ring-primary"
-                                                                         placeholder="Roan Yeh..."/>
+                                                                         placeholder="Lebron James..."/>
 
                                                                 </div>
 
@@ -188,7 +188,7 @@ export const ContactSection = () => {
                                                                          value={formData.email}
                                                                          onChange={handleChange}
                                                                          className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outline-hidden foucs:ring-2 focus:ring-primary"
-                                                                         placeholder="roanpyeh@gmail.com"/>
+                                                                         placeholder="thegoatlebron@gmail.com"/>
 
                                                                 </div>
 
