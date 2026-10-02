@@ -71,6 +71,8 @@ const CarStereoPlayer = ({ track, trackIndex, trackCount, onSeekNext, onSeekPrev
   const rafRef = useRef(null);
   const dataArrayRef = useRef(null);
   const binRangesRef = useRef(null);
+  const progressRef = useRef(null);
+  const isDraggingRef = useRef(false);
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -220,12 +222,36 @@ const CarStereoPlayer = ({ track, trackIndex, trackCount, onSeekNext, onSeekPrev
     setIsPlaying(false);
   };
 
-  const handleSeekBar = (e) => {
-    if (!playable || !duration) return;
-    const rect = e.currentTarget.getBoundingClientRect();
-    const ratio = Math.min(1, Math.max(0, (e.clientX - rect.left) / rect.width));
+  const seekToClientX = (clientX) => {
+    const bar = progressRef.current;
+    if (!playable || !duration || !bar) return;
+    const rect = bar.getBoundingClientRect();
+    const ratio = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
     audioRef.current.currentTime = ratio * duration;
     setCurrentTime(ratio * duration);
+  };
+
+  // Pointer Events unify mouse and touch, so dragging the progress bar to scrub works
+  // the same on desktop and mobile. setPointerCapture keeps receiving move events even
+  // if the finger/cursor drifts outside the thin bar while dragging.
+  const handleSeekPointerDown = (e) => {
+    if (!playable || !duration) return;
+    isDraggingRef.current = true;
+    e.currentTarget.setPointerCapture(e.pointerId);
+    seekToClientX(e.clientX);
+  };
+
+  const handleSeekPointerMove = (e) => {
+    if (!isDraggingRef.current) return;
+    seekToClientX(e.clientX);
+  };
+
+  const handleSeekPointerUp = (e) => {
+    if (!isDraggingRef.current) return;
+    isDraggingRef.current = false;
+    // Always resolve the final drop position here too, not just on move - some input
+    // pipelines coalesce or skip intermediate move events for a fast drag/tap-and-release.
+    seekToClientX(e.clientX);
   };
 
   const formatTime = (s) => {
@@ -318,18 +344,37 @@ const CarStereoPlayer = ({ track, trackIndex, trackCount, onSeekNext, onSeekPrev
           </p>
 
           <div
-            className="h-1.5 md:h-2 rounded-sm cursor-pointer mt-1"
-            style={{ background: "#1a1308" }}
-            onClick={handleSeekBar}
+            ref={progressRef}
+            className="relative h-1.5 md:h-2 rounded-sm cursor-pointer mt-1 touch-none py-2 -my-2"
+            style={{ background: "transparent" }}
+            onPointerDown={handleSeekPointerDown}
+            onPointerMove={handleSeekPointerMove}
+            onPointerUp={handleSeekPointerUp}
+            onPointerCancel={() => (isDraggingRef.current = false)}
           >
-            <div
-              className="h-full rounded-sm"
-              style={{
-                width: `${playable ? progressPct : 0}%`,
-                background: COLORS.text,
-                transition: "width 0.1s linear",
-              }}
-            />
+            <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-1.5 md:h-2 rounded-sm" style={{ background: "#1a1308" }}>
+              <div
+                className="h-full rounded-sm"
+                style={{
+                  width: `${playable ? progressPct : 0}%`,
+                  background: COLORS.text,
+                  transition: isDraggingRef.current ? "none" : "width 0.1s linear",
+                }}
+              />
+            </div>
+            {playable && (
+              <div
+                className="absolute top-1/2 rounded-full"
+                style={{
+                  left: `${progressPct}%`,
+                  width: 12,
+                  height: 12,
+                  transform: "translate(-50%, -50%)",
+                  background: COLORS.text,
+                  boxShadow: "0 1px 3px rgba(0,0,0,0.6)",
+                }}
+              />
+            )}
           </div>
           <div className="flex justify-between font-mono text-[9px] md:text-xs" style={{ color: COLORS.textDim }}>
             <span>{playable ? formatTime(currentTime) : "--:--"}</span>
@@ -342,16 +387,16 @@ const CarStereoPlayer = ({ track, trackIndex, trackCount, onSeekNext, onSeekPrev
       <div className="rounded-sm p-2 md:p-2.5 flex gap-2 md:gap-2.5" style={unitStyle}>
         <button
           onClick={onSeekPrev}
-          className="flex items-center justify-center gap-1 rounded-sm px-3 md:px-4 font-mono text-[10px] md:text-xs tracking-wide"
+          className="flex items-center justify-center gap-1 rounded-sm px-2.5 sm:px-3 md:px-4 font-mono text-[10px] md:text-xs tracking-wide"
           style={btnStyle(false)}
         >
           <ChevronLeft size={14} />
-          SEEK
+          <span className="hidden sm:inline">SEEK</span>
         </button>
         <button
           onClick={handlePlay}
           disabled={!playable}
-          className="flex-1 flex items-center justify-center gap-1.5 rounded-sm py-2.5 md:py-3.5 font-mono text-[10px] md:text-sm tracking-wide disabled:cursor-not-allowed"
+          className="flex-1 min-w-0 flex items-center justify-center gap-1.5 rounded-sm py-2.5 md:py-3.5 font-mono text-[10px] md:text-sm tracking-wide disabled:cursor-not-allowed"
           style={btnStyle(isPlaying && playable)}
         >
           <Play size={14} fill={isPlaying && playable ? COLORS.text : "none"} />
@@ -360,7 +405,7 @@ const CarStereoPlayer = ({ track, trackIndex, trackCount, onSeekNext, onSeekPrev
         <button
           onClick={handlePause}
           disabled={!playable}
-          className="flex-1 flex items-center justify-center gap-1.5 rounded-sm py-2.5 md:py-3.5 font-mono text-[10px] md:text-sm tracking-wide disabled:cursor-not-allowed"
+          className="flex-1 min-w-0 flex items-center justify-center gap-1.5 rounded-sm py-2.5 md:py-3.5 font-mono text-[10px] md:text-sm tracking-wide disabled:cursor-not-allowed"
           style={btnStyle(!isPlaying && playable && currentTime > 0)}
         >
           <Pause size={14} fill={!isPlaying && playable && currentTime > 0 ? COLORS.text : "none"} />
@@ -368,10 +413,10 @@ const CarStereoPlayer = ({ track, trackIndex, trackCount, onSeekNext, onSeekPrev
         </button>
         <button
           onClick={onSeekNext}
-          className="flex items-center justify-center gap-1 rounded-sm px-3 md:px-4 font-mono text-[10px] md:text-xs tracking-wide"
+          className="flex items-center justify-center gap-1 rounded-sm px-2.5 sm:px-3 md:px-4 font-mono text-[10px] md:text-xs tracking-wide"
           style={btnStyle(false)}
         >
-          SEEK
+          <span className="hidden sm:inline">SEEK</span>
           <ChevronRight size={14} />
         </button>
       </div>
@@ -394,10 +439,10 @@ const CarStereoPlayer = ({ track, trackIndex, trackCount, onSeekNext, onSeekPrev
                 target={link.download ? "_self" : "_blank"}
                 rel="noopener noreferrer"
                 download={link.download || undefined}
-                className="flex-1 flex items-center justify-center gap-2 rounded-sm py-2.5 md:py-3.5 font-mono text-xs md:text-sm tracking-wide transition-colors"
+                className="flex-1 min-w-0 flex items-center justify-center gap-1.5 md:gap-2 rounded-sm py-2.5 md:py-3.5 px-1 font-mono text-[10px] md:text-sm tracking-wide transition-colors"
                 style={{ background: "#1b1b1b", border: `1px solid ${COLORS.bezel}`, color: COLORS.text }}
               >
-                <Icon size={18} />
+                <Icon size={16} className="shrink-0 md:w-[18px] md:h-[18px]" />
                 <span className="truncate">{link.label}</span>
               </a>
             );
