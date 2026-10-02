@@ -586,7 +586,7 @@ export const Handdown = () => {
                     <h3 className="text-2xl font-semibold mb-6">Version 2.0</h3>
                     <div className="space-y-6 text-left text-muted-foreground">
                       <p>
-                        That reconsideration became real in Version 2.0: I rebuilt the data layer in Supabase
+                        I actually got the chance to do things differently with Version 2.0: I rebuilt the data layer in Supabase
                         (Postgres), with real foreign keys and cascading deletes, Supabase Auth replacing the old
                         plaintext password check, and secrets now loaded from environment variables instead of
                         hardcoded paths. The schema also lays groundwork for expanding beyond Tufts, with a shared
