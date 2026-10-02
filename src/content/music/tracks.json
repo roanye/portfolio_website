@@ -20,7 +20,7 @@
     "imageSrc": "/music_production/ThinkingOfHerAlbumCover.png",
     "color": "#3B5A7A",
     "links": [
-      { "label": "Spotify", "url": "https://open.spotify.com/artist/5nLkNqueZ7b2ahL6188q5A?si=nfvUkmaCRfmCa5tU_tSi_w", "download": false }
+      { "label": "Spotify", "url": "https://open.spotify.com/track/64MwpIo2ZcEg4oUmUNkyCQ?si=406bcff7d6754b47", "download": false }
     ]
   },
   {
@@ -33,9 +33,9 @@
     "imageSrc": null,
     "color": "#4E7A3B",
     "links": [
-      { "label": "Watch Performance", "url": "https://www.youtube.com/watch?v=nfBgXMBIV0E", "download": false },
-      { "label": "PDF Score", "url": "/arrangements/save-the-last-dance-for-me.pdf", "download": true },
-      { "label": ".mscz File", "url": "/arrangements/save-the-last-dance-for-me-final.mscz", "download": true }
+      { "label": "Watch", "url": "https://www.youtube.com/watch?v=nfBgXMBIV0E", "download": false },
+      { "label": "Score", "url": "/arrangements/save-the-last-dance-for-me.pdf", "download": true },
+      { "label": "MuseScore", "url": "/arrangements/save-the-last-dance-for-me-final.mscz", "download": true }
     ]
   },
   {
@@ -44,12 +44,14 @@
     "type": "A Cappella Arrangement",
     "date": "Fall 2024",
     "description": "Arranged for a 12-person TTBB a cappella group, appearing on the Tufts Beelzebubs EP 'School's Out', released December 2024.",
-    "audioSrc": null,
-    "imageSrc": null,
+    "audioSrc": "/music_production/whats-new-scoob-track.mp3",
+    "imageSrc": "/music_production/whats-new-scoob.jpg",
     "color": "#7A3B5E",
     "links": [
-      { "label": "PDF Score", "url": "/arrangements/whats-new-scoob.pdf", "download": true },
-      { "label": ".mscz File", "url": "/arrangements/whats-new-scoob.mscz", "download": true }
+      { "label": "Watch", "url": "https://www.youtube.com/watch?v=739j4V0MkeY", "download": false },
+      { "label": "Spotify", "url": "https://open.spotify.com/track/6Dltj5HZxJuM6QK5ZxoMx7?si=96251bb2c7ad4a22", "download": false },
+      { "label": "Score", "url": "/arrangements/whats-new-scoob.pdf", "download": true },
+      { "label": "MuseScore", "url": "/arrangements/whats-new-scoob.mscz", "download": true }
     ]
   }
 ]
