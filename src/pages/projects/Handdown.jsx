@@ -126,25 +126,25 @@ export const Handdown = () => {
                             <table className="w-full text-left border-collapse">
                               <thead>
                                 <tr className="border-b border-primary/30">
-                                  <th className="py-2 pr-4 text-primary font-semibold whitespace-nowrap">Name</th>
-                                  <th className="py-2 pr-4 text-primary font-semibold whitespace-nowrap">Role</th>
+                                  <th className="py-2 pr-4 text-primary font-semibold sm:whitespace-nowrap">Name</th>
+                                  <th className="py-2 pr-4 text-primary font-semibold sm:whitespace-nowrap">Role</th>
                                   <th className="py-2 text-primary font-semibold">Contribution</th>
                                 </tr>
                               </thead>
                               <tbody>
                                 <tr className="border-b border-border">
-                                  <td className="py-3 pr-4 font-medium text-foreground whitespace-nowrap">Roan Yeh (me)</td>
-                                  <td className="py-3 pr-4 text-muted-foreground whitespace-nowrap">Backend</td>
+                                  <td className="py-3 pr-4 font-medium text-foreground sm:whitespace-nowrap">Roan Yeh (me)</td>
+                                  <td className="py-3 pr-4 text-muted-foreground sm:whitespace-nowrap">Backend</td>
                                   <td className="py-3 text-muted-foreground">API endpoints and database management.</td>
                                 </tr>
                                 <tr className="border-b border-border">
-                                  <td className="py-3 pr-4 font-medium text-foreground whitespace-nowrap">Ian Ryan, later Patrick Yeh</td>
-                                  <td className="py-3 pr-4 text-muted-foreground whitespace-nowrap">Frontend</td>
+                                  <td className="py-3 pr-4 font-medium text-foreground sm:whitespace-nowrap">Ian Ryan, later Patrick Yeh</td>
+                                  <td className="py-3 pr-4 text-muted-foreground sm:whitespace-nowrap">Frontend</td>
                                   <td className="py-3 text-muted-foreground">UI, screen layouts, and wiring the frontend to the API.</td>
                                 </tr>
                                 <tr>
-                                  <td className="py-3 pr-4 font-medium text-foreground whitespace-nowrap">Mateo Sufuentes</td>
-                                  <td className="py-3 pr-4 text-muted-foreground whitespace-nowrap">Algorithms</td>
+                                  <td className="py-3 pr-4 font-medium text-foreground sm:whitespace-nowrap">Mateo Sufuentes</td>
+                                  <td className="py-3 pr-4 text-muted-foreground sm:whitespace-nowrap">Algorithms</td>
                                   <td className="py-3 text-muted-foreground">Search and recommendation algorithms.</td>
                                 </tr>
                               </tbody>
@@ -164,13 +164,13 @@ export const Handdown = () => {
                             <table className="w-full text-left border-collapse">
                               <thead>
                                 <tr className="border-b border-primary/30">
-                                  <th className="py-2 pr-4 text-primary font-semibold whitespace-nowrap align-top">Category</th>
+                                  <th className="py-2 pr-4 text-primary font-semibold sm:whitespace-nowrap align-top">Category</th>
                                   <th className="py-2 text-primary font-semibold">Technologies</th>
                                 </tr>
                               </thead>
                               <tbody>
                                 <tr className="border-b border-border">
-                                  <td className="py-3 pr-4 font-medium text-foreground whitespace-nowrap align-top">Frontend</td>
+                                  <td className="py-3 pr-4 font-medium text-foreground sm:whitespace-nowrap align-top">Frontend</td>
                                   <td className="py-3">
                                     <div className="flex flex-wrap gap-2">
                                       <span className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-border bg-secondary text-secondary-foreground text-sm">
@@ -181,7 +181,7 @@ export const Handdown = () => {
                                   </td>
                                 </tr>
                                 <tr className="border-b border-border">
-                                  <td className="py-3 pr-4 font-medium text-foreground whitespace-nowrap align-top">Backend</td>
+                                  <td className="py-3 pr-4 font-medium text-foreground sm:whitespace-nowrap align-top">Backend</td>
                                   <td className="py-3">
                                     <div className="flex flex-wrap gap-2">
                                       <span className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-border bg-secondary text-secondary-foreground text-sm">
@@ -200,7 +200,7 @@ export const Handdown = () => {
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td className="py-3 pr-4 font-medium text-foreground whitespace-nowrap align-top">Database</td>
+                                  <td className="py-3 pr-4 font-medium text-foreground sm:whitespace-nowrap align-top">Database</td>
                                   <td className="py-3">
                                     <div className="flex flex-wrap gap-2">
                                       <span className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-border bg-secondary text-secondary-foreground text-sm">
@@ -273,46 +273,46 @@ export const Handdown = () => {
                       <table className="w-full text-left border-collapse">
                         <thead>
                           <tr className="border-b border-primary/30">
-                            <th className="py-2 pr-4 text-primary font-semibold whitespace-nowrap align-top">Feature</th>
+                            <th className="py-2 pr-4 text-primary font-semibold sm:whitespace-nowrap align-top">Feature</th>
                             <th className="py-2 pr-4 text-primary font-semibold align-top">API Endpoint(s)</th>
                             <th className="py-2 text-primary font-semibold align-top">Database (Firebase)</th>
                           </tr>
                         </thead>
                         <tbody className="text-muted-foreground">
                           <tr className="border-b border-border">
-                            <td className="py-3 pr-4 font-medium text-foreground whitespace-nowrap align-top">Sign Up &amp; Onboarding</td>
+                            <td className="py-3 pr-4 font-medium text-foreground sm:whitespace-nowrap align-top">Sign Up &amp; Onboarding</td>
                             <td className="py-3 pr-4 align-top">
                               /onboarding/email-verification, /code-entry, /basic-info, /profile-photo, /profile-interests, /profile-offerings
                             </td>
                             <td className="py-3 align-top">Firestore profiles &amp; profile-verifications; Storage profiles/&#123;uid&#125;/...</td>
                           </tr>
                           <tr className="border-b border-border">
-                            <td className="py-3 pr-4 font-medium text-foreground whitespace-nowrap align-top">Login</td>
+                            <td className="py-3 pr-4 font-medium text-foreground sm:whitespace-nowrap align-top">Login</td>
                             <td className="py-3 pr-4 align-top">/login/login</td>
                             <td className="py-3 align-top">Firestore profiles (email + password lookup)</td>
                           </tr>
                           <tr className="border-b border-border">
-                            <td className="py-3 pr-4 font-medium text-foreground whitespace-nowrap align-top">Browse / Swipe Feed</td>
+                            <td className="py-3 pr-4 font-medium text-foreground sm:whitespace-nowrap align-top">Browse / Swipe Feed</td>
                             <td className="py-3 pr-4 align-top">/algo/get-feed-listings (ML-ranked), /feed/swipe-right, /swipe-left, /swipe-down</td>
                             <td className="py-3 align-top">Firestore profiles, listings, conversations</td>
                           </tr>
                           <tr className="border-b border-border">
-                            <td className="py-3 pr-4 font-medium text-foreground whitespace-nowrap align-top">Search</td>
+                            <td className="py-3 pr-4 font-medium text-foreground sm:whitespace-nowrap align-top">Search</td>
                             <td className="py-3 pr-4 align-top">/algo/get-search-listings</td>
                             <td className="py-3 align-top">Firestore listings</td>
                           </tr>
                           <tr className="border-b border-border">
-                            <td className="py-3 pr-4 font-medium text-foreground whitespace-nowrap align-top">Create Listing</td>
+                            <td className="py-3 pr-4 font-medium text-foreground sm:whitespace-nowrap align-top">Create Listing</td>
                             <td className="py-3 pr-4 align-top">/listings/create-listing</td>
                             <td className="py-3 align-top">Storage (listing image); Firestore listings, profiles</td>
                           </tr>
                           <tr className="border-b border-border">
-                            <td className="py-3 pr-4 font-medium text-foreground whitespace-nowrap align-top">Messaging</td>
+                            <td className="py-3 pr-4 font-medium text-foreground sm:whitespace-nowrap align-top">Messaging</td>
                             <td className="py-3 pr-4 align-top">/conversations/get-all-conversations, /send-message</td>
                             <td className="py-3 align-top">Firestore conversations + messages subcollection</td>
                           </tr>
                           <tr>
-                            <td className="py-3 pr-4 font-medium text-foreground whitespace-nowrap align-top">Profile</td>
+                            <td className="py-3 pr-4 font-medium text-foreground sm:whitespace-nowrap align-top">Profile</td>
                             <td className="py-3 pr-4 align-top">/profile/profile-access</td>
                             <td className="py-3 align-top">Firestore profiles</td>
                           </tr>
@@ -332,31 +332,31 @@ export const Handdown = () => {
                         <table className="w-full text-left border-collapse">
                           <tbody>
                             <tr className="border-b border-border">
-                              <td className="py-3 pr-4 font-semibold text-foreground align-top whitespace-nowrap">First full-stack project</td>
+                              <td className="py-3 pr-4 font-semibold text-foreground align-top sm:whitespace-nowrap">First full-stack project</td>
                               <td className="py-3 align-top">Previous work had been backend-only or solo/small-group, without real GitHub collaboration (aside from a much smaller-scope game design class project). This was the first time working across the full stack, as part of a team.</td>
                             </tr>
                             <tr className="border-b border-border">
-                              <td className="py-3 pr-4 font-semibold text-foreground align-top whitespace-nowrap">Becoming the de facto team lead</td>
+                              <td className="py-3 pr-4 font-semibold text-foreground align-top sm:whitespace-nowrap">Becoming the de facto team lead</td>
                               <td className="py-3 align-top">With three people and no assigned PM, I ended up coordinating scope, timelines, and the handoff between frontend and backend work.</td>
                             </tr>
                             <tr className="border-b border-border">
-                              <td className="py-3 pr-4 font-semibold text-foreground align-top whitespace-nowrap">Defining our own goals</td>
+                              <td className="py-3 pr-4 font-semibold text-foreground align-top sm:whitespace-nowrap">Defining our own goals</td>
                               <td className="py-3 align-top">Most capstone teams picked from pre-proposed projects where an outside company and stakeholders had already set the goals. We built something of our own instead, so we had to define our own sprints and our own definition of done, with no external stakeholder steering the direction.</td>
                             </tr>
                             <tr className="border-b border-border">
-                              <td className="py-3 pr-4 font-semibold text-foreground align-top whitespace-nowrap">Learning FastAPI and Firebase from scratch</td>
+                              <td className="py-3 pr-4 font-semibold text-foreground align-top sm:whitespace-nowrap">Learning FastAPI and Firebase from scratch</td>
                               <td className="py-3 align-top">Both were new to me, so I was learning their patterns and limits while building with them in parallel.</td>
                             </tr>
                             <tr className="border-b border-border">
-                              <td className="py-3 pr-4 font-semibold text-foreground align-top whitespace-nowrap">Modeling relationships in a NoSQL database</td>
+                              <td className="py-3 pr-4 font-semibold text-foreground align-top sm:whitespace-nowrap">Modeling relationships in a NoSQL database</td>
                               <td className="py-3 align-top">Firestore has no foreign keys or cascading deletes. Every interaction (a like, a super-like opening a conversation) meant manually keeping array fields in sync across documents, and deleting a listing required manually cleaning up its conversations, messages, and every profile referencing it.</td>
                             </tr>
                             <tr className="border-b border-border">
-                              <td className="py-3 pr-4 font-semibold text-foreground align-top whitespace-nowrap">Testing without a deployed backend</td>
+                              <td className="py-3 pr-4 font-semibold text-foreground align-top sm:whitespace-nowrap">Testing without a deployed backend</td>
                               <td className="py-3 align-top">Everything ran locally, so testing meant pointing the mobile client at whichever teammate's laptop was running the FastAPI server over LAN.</td>
                             </tr>
                             <tr>
-                              <td className="py-3 pr-4 font-semibold text-foreground align-top whitespace-nowrap">Looser process than I'd later work with professionally</td>
+                              <td className="py-3 pr-4 font-semibold text-foreground align-top sm:whitespace-nowrap">Looser process than I'd later work with professionally</td>
                               <td className="py-3 align-top">Secrets and environment config were handled ad hoc (credentials and an SMTP password lived in source rather than environment variables), with no CI or formal review process.</td>
                             </tr>
                           </tbody>
@@ -374,15 +374,15 @@ export const Handdown = () => {
                           <table className="w-full text-left border-collapse">
                             <tbody>
                               <tr className="border-b border-border">
-                                <td className="py-3 pr-4 font-semibold text-foreground align-top whitespace-nowrap">Set firmer internal deadlines and milestones</td>
+                                <td className="py-3 pr-4 font-semibold text-foreground align-top sm:whitespace-nowrap">Set firmer internal deadlines and milestones</td>
                                 <td className="py-3 align-top">Without an external stakeholder enforcing a timeline, things moved at whatever pace felt comfortable, which gave gaps more room to open up.</td>
                               </tr>
                               <tr className="border-b border-border">
-                                <td className="py-3 pr-4 font-semibold text-foreground align-top whitespace-nowrap">Keep a shared tracker, not just check-ins</td>
+                                <td className="py-3 pr-4 font-semibold text-foreground align-top sm:whitespace-nowrap">Keep a shared tracker, not just check-ins</td>
                                 <td className="py-3 align-top">We met regularly as a team, but without a single living document of where each piece stood, our timelines often drifted to different stages, including mine versus my groupmates'; it took documenting the architecture a year later to see the full picture.</td>
                               </tr>
                               <tr>
-                                <td className="py-3 pr-4 font-semibold text-foreground align-top whitespace-nowrap">Add even a minimal review step before merging</td>
+                                <td className="py-3 pr-4 font-semibold text-foreground align-top sm:whitespace-nowrap">Add even a minimal review step before merging</td>
                                 <td className="py-3 align-top">Not out of distrust, just so two people look at anything that crosses the frontend/backend boundary before it's considered "done."</td>
                               </tr>
                             </tbody>
@@ -395,15 +395,15 @@ export const Handdown = () => {
                           <table className="w-full text-left border-collapse">
                             <tbody>
                               <tr className="border-b border-border">
-                                <td className="py-3 pr-4 font-semibold text-foreground align-top whitespace-nowrap">Reconsider the database choice given how relational the data actually was</td>
+                                <td className="py-3 pr-4 font-semibold text-foreground align-top sm:whitespace-nowrap">Reconsider the database choice given how relational the data actually was</td>
                                 <td className="py-3 align-top">Listings, profiles, conversations, and messages all naturally wanted foreign keys and joins, which we were fighting against in a NoSQL document store.</td>
                               </tr>
                               <tr className="border-b border-border">
-                                <td className="py-3 pr-4 font-semibold text-foreground align-top whitespace-nowrap">Treat secrets as environment variables from day one</td>
+                                <td className="py-3 pr-4 font-semibold text-foreground align-top sm:whitespace-nowrap">Treat secrets as environment variables from day one</td>
                                 <td className="py-3 align-top">Instead of retrofitting it later.</td>
                               </tr>
                               <tr>
-                                <td className="py-3 pr-4 font-semibold text-foreground align-top whitespace-nowrap">Compress media before upload</td>
+                                <td className="py-3 pr-4 font-semibold text-foreground align-top sm:whitespace-nowrap">Compress media before upload</td>
                                 <td className="py-3 align-top">We uploaded listing and profile images straight from the device with no compression, which slowed down loading and degraded the app's overall feel.</td>
                               </tr>
                             </tbody>
@@ -432,19 +432,19 @@ export const Handdown = () => {
                           <table className="w-full text-left border-collapse">
                             <tbody>
                               <tr className="border-b border-border">
-                                <td className="py-3 pr-4 font-semibold text-foreground align-top whitespace-nowrap">Moving Help marketplace</td>
+                                <td className="py-3 pr-4 font-semibold text-foreground align-top sm:whitespace-nowrap">Moving Help marketplace</td>
                                 <td className="py-3 align-top">Pay fellow students to help move items, with tiered pricing (Door to Door, Complete Move, Heavy Duty) and a calendar that auto-matches buyer, seller, and mover availability.</td>
                               </tr>
                               <tr className="border-b border-border">
-                                <td className="py-3 pr-4 font-semibold text-foreground align-top whitespace-nowrap">Multi-university support</td>
+                                <td className="py-3 pr-4 font-semibold text-foreground align-top sm:whitespace-nowrap">Multi-university support</td>
                                 <td className="py-3 align-top">A shared universities registry and a dedicated database schema per campus, so the app isn't locked to one school.</td>
                               </tr>
                               <tr className="border-b border-border">
-                                <td className="py-3 pr-4 font-semibold text-foreground align-top whitespace-nowrap">Bidding on listings</td>
+                                <td className="py-3 pr-4 font-semibold text-foreground align-top sm:whitespace-nowrap">Bidding on listings</td>
                                 <td className="py-3 align-top">An alternative to fixed-price only, letting buyers make offers.</td>
                               </tr>
                               <tr>
-                                <td className="py-3 pr-4 font-semibold text-foreground align-top whitespace-nowrap">Richer profiles</td>
+                                <td className="py-3 pr-4 font-semibold text-foreground align-top sm:whitespace-nowrap">Richer profiles</td>
                                 <td className="py-3 align-top">Seller ratings, declared major, and class year surfaced directly on listings.</td>
                               </tr>
                             </tbody>
