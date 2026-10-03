@@ -433,17 +433,35 @@ const CarStereoPlayer = ({ track, trackIndex, trackCount, onSeekNext, onSeekPrev
           {track.links.map((link) => {
             const Icon = linkIcon(link);
             return (
+              // Each button is its own container-query context, so its font-size (and the
+              // icon/gap, both sized in em off of it) scales with the BUTTON's own width -
+              // not a viewport breakpoint. Fewer links -> wider buttons -> bigger text, and
+              // it adapts automatically if the number of links ever changes.
               <a
                 key={link.label}
                 href={link.url}
                 target={link.download ? "_self" : "_blank"}
                 rel="noopener noreferrer"
                 download={link.download || undefined}
-                className="flex-1 min-w-0 flex items-center justify-center gap-1 sm:gap-1.5 md:gap-2 rounded-sm py-2.5 md:py-3.5 px-1 font-mono text-[8px] sm:text-xs md:text-sm tracking-wide transition-colors"
-                style={{ background: "#1b1b1b", border: `1px solid ${COLORS.bezel}`, color: COLORS.text }}
+                className="flex-1 min-w-0 rounded-sm py-2.5 md:py-3.5 px-1 font-mono tracking-wide transition-colors"
+                style={{
+                  background: "#1b1b1b",
+                  border: `1px solid ${COLORS.bezel}`,
+                  color: COLORS.text,
+                  containerType: "inline-size",
+                }}
               >
-                <Icon size={13} className="shrink-0 sm:w-4 sm:h-4 md:w-[18px] md:h-[18px]" />
-                <span className="truncate">{link.label}</span>
+                {/* cqw units can't resolve on the element that establishes the container
+                    (circular - it can't size itself off its own query units), so the
+                    container-type lives on the <a> above and the clamp()-driven size lives
+                    on this child instead, with the icon/text/gap all scaling off of it. */}
+                <span
+                  className="flex items-center justify-center gap-[0.4em] min-w-0"
+                  style={{ fontSize: "clamp(6px, 11cqw, 15px)" }}
+                >
+                  <Icon size="1.3em" className="shrink-0" />
+                  <span className="truncate">{link.label}</span>
+                </span>
               </a>
             );
           })}
