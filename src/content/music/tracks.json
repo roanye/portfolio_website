@@ -11,11 +11,22 @@
     "links": []
   },
   {
+    "id": "thinking-of-her",
+    "title": "Thinking of Her",
+    "type": "Original — Lofi Single",
+    "date": "2023",
+    "description": "The first track in my two-song Lofi single 'Thinking of Her', produced in Logic Pro X. This song started as a loop I made for my game design class for a game centered around cheese, but it found a new meaning when I completed the track.",
+    "audioSrc": "/music_production/ThinkingOfHer_Master.wav",
+    "imageSrc": "/music_production/ThinkingOfHerAlbumCover.png",
+    "color": "#5A3B7A",
+    "links": []
+  },
+  {
     "id": "close-your-eyes",
     "title": "Close Your Eyes",
     "type": "Original — Lofi Single",
     "date": "2023",
-    "description": "From my two-song Lofi single 'Thinking of Her', produced in Logic Pro X. The story begins with two dancers separated by darkness. As the man dances, he spirals into a memory of a sunlit park where he briefly waltzes with his partner — then twists back into the dark alone.",
+    "description": "The second half of my two-song Lofi single 'Thinking of Her', produced in Logic Pro X.",
     "audioSrc": "/music_production/CloseYourEyes.wav",
     "imageSrc": "/music_production/ThinkingOfHerAlbumCover.png",
     "color": "#3B5A7A",
@@ -30,7 +41,7 @@
     "date": "Spring 2025",
     "description": "My senior solo arrangement for the Tufts Beelzebubs — a 15-person TTBB a cappella group. We performed it in funny costumes, which is a Beelzebubs tradition.",
     "audioSrc": null,
-    "imageSrc": null,
+    "imageSrc": "/music_production/bubs.jpg",
     "color": "#4E7A3B",
     "links": [
       { "label": "Watch", "url": "https://www.youtube.com/watch?v=nfBgXMBIV0E", "download": false },
