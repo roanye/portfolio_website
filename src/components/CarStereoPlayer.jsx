@@ -271,13 +271,16 @@ const CarStereoPlayer = ({ track, trackIndex, trackCount, onSeekNext, onSeekPrev
     boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05), 0 2px 6px rgba(0,0,0,0.4)",
   };
 
-  const btnStyle = (active) => ({
+  // SEEK always works (it just flips tracks) regardless of whether the current track has
+  // audio, so it shouldn't dim along with PLAY/PAUSE when a track isn't playable - pass
+  // dimmed explicitly for those instead of defaulting to the track's playable state.
+  const btnStyle = (active, dimmed = !playable) => ({
     background: active ? "#141008" : "#1b1b1b",
     border: `1px solid ${COLORS.bezel}`,
     boxShadow: active
       ? "inset 0 2px 4px rgba(0,0,0,0.6)"
       : "inset 0 1px 0 rgba(255,255,255,0.06), 0 1px 2px rgba(0,0,0,0.4)",
-    color: playable ? COLORS.text : "#4a4a4a",
+    color: dimmed ? "#4a4a4a" : COLORS.text,
   });
 
   return (
@@ -388,7 +391,7 @@ const CarStereoPlayer = ({ track, trackIndex, trackCount, onSeekNext, onSeekPrev
         <button
           onClick={onSeekPrev}
           className="flex items-center justify-center gap-1 rounded-sm px-2.5 sm:px-3 md:px-4 font-mono text-[10px] md:text-xs tracking-wide"
-          style={btnStyle(false)}
+          style={btnStyle(false, false)}
         >
           <ChevronLeft size={14} />
           <span className="hidden sm:inline">SEEK</span>
@@ -414,7 +417,7 @@ const CarStereoPlayer = ({ track, trackIndex, trackCount, onSeekNext, onSeekPrev
         <button
           onClick={onSeekNext}
           className="flex items-center justify-center gap-1 rounded-sm px-2.5 sm:px-3 md:px-4 font-mono text-[10px] md:text-xs tracking-wide"
-          style={btnStyle(false)}
+          style={btnStyle(false, false)}
         >
           <span className="hidden sm:inline">SEEK</span>
           <ChevronRight size={14} />
