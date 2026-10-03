@@ -439,10 +439,10 @@ const CarStereoPlayer = ({ track, trackIndex, trackCount, onSeekNext, onSeekPrev
                 target={link.download ? "_self" : "_blank"}
                 rel="noopener noreferrer"
                 download={link.download || undefined}
-                className="flex-1 min-w-0 flex items-center justify-center gap-1.5 md:gap-2 rounded-sm py-2.5 md:py-3.5 px-1 font-mono text-[10px] md:text-sm tracking-wide transition-colors"
+                className="flex-1 min-w-0 flex items-center justify-center gap-1 sm:gap-1.5 md:gap-2 rounded-sm py-2.5 md:py-3.5 px-1 font-mono text-[8px] sm:text-xs md:text-sm tracking-wide transition-colors"
                 style={{ background: "#1b1b1b", border: `1px solid ${COLORS.bezel}`, color: COLORS.text }}
               >
-                <Icon size={16} className="shrink-0 md:w-[18px] md:h-[18px]" />
+                <Icon size={13} className="shrink-0 sm:w-4 sm:h-4 md:w-[18px] md:h-[18px]" />
                 <span className="truncate">{link.label}</span>
               </a>
             );
