@@ -15,11 +15,13 @@
     "title": "Thinking of Her",
     "type": "Original — Lofi Single",
     "date": "2023",
-    "description": "The first track in my two-song Lofi single 'Thinking of Her', produced in Logic Pro X. This song started as a loop I made for my game design class for a game centered around cheese, but it found a new meaning when I completed the track.",
+    "description": "The first track in my two-song Lofi single 'Thinking of Her', produced in Logic Pro X. This song started as a loop I made for my game design class for a game centered around cheese, but it found a new meaning when I completed it.",
     "audioSrc": "/music_production/ThinkingOfHer_Master.wav",
     "imageSrc": "/music_production/ThinkingOfHerAlbumCover.png",
     "color": "#5A3B7A",
-    "links": []
+    "links": [
+      { "label": "Spotify", "url": "https://open.spotify.com/track/2PCzgXI6gY8fyB3edZOf6A?si=4b46702817f94537", "download": false }
+    ]
   },
   {
     "id": "close-your-eyes",
