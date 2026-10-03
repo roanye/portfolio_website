@@ -422,7 +422,7 @@ export const Handdown = () => {
                         also ran a poster session during Jumbo Days, Tufts' open house for admitted students,
                         where parents, admitted students, and current students tried the platform themselves.
                         In the photo below, which I took, Mateo and Ian stand in front of our poster with
-                        the demo running on Ryan's phone.
+                        the demo running on Ians's phone.
                       </p>
 
                       <img src="/projects/handdown/poster-session.webp" alt="Poster Session" className="rounded-lg shadow-lg mx-auto"/>
