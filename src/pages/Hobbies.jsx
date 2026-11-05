@@ -8,7 +8,7 @@ const hobbies = [
     icon: BookOpen,
     title: "Poetry",
     description:
-      "Writing has always been a way for me to make sense of things. Browse my poetry library — everything from quick observations to longer meditations.",
+      "In recent years, poetry has served as a journal of sorts. I use it to make sense of things. Browse my poetry library: Everything from rants to reflections to meditations",
     link: "/poetry",
     label: "Browse Library",
   },
@@ -16,7 +16,7 @@ const hobbies = [
     icon: Music2,
     title: "Music",
     description:
-      "Singing, music production, and a cappella with The Tufts Beelzebubs. I minored in music engineering at Tufts and still obsessively fine-tune tracks.",
+      "Music is a top three thing in my life. I sing, produce, and still obsessively fine-tune tracks after minoring in music engineering at Tufts. Here's a small collection of my compositions and arrangements.",
     link: "/music",
     label: "Spin the Record",
   },
