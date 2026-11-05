@@ -66,6 +66,7 @@ const CarStereoPlayer = ({ track, trackIndex, trackCount, onSeekNext, onSeekPrev
   const audioCtxRef = useRef(null);
   const analyserRef = useRef(null);
   const sourceRef = useRef(null);
+  const gainRef = useRef(null);
   const segmentRefs = useRef([]);
   const levelsRef = useRef(new Array(BAR_COUNT).fill(0));
   const rafRef = useRef(null);
@@ -112,8 +113,22 @@ const CarStereoPlayer = ({ track, trackIndex, trackCount, onSeekNext, onSeekPrev
     analyser.minDecibels = -90;
     analyser.maxDecibels = -20;
     const source = ctx.createMediaElementSource(audioRef.current);
-    source.connect(analyser);
+    // Loudness normalization, Spotify-style: each track's precomputed gainDb (measured
+    // offline to land at -14 LUFS) is applied here, and a limiter right after catches the
+    // peaks of tracks that get boosted. Turned-down tracks never reach its threshold.
+    const gain = ctx.createGain();
+    const limiter = ctx.createDynamicsCompressor();
+    limiter.threshold.value = -1;
+    limiter.knee.value = 0;
+    limiter.ratio.value = 20;
+    limiter.attack.value = 0.001;
+    limiter.release.value = 0.1;
+    // The analyser sits after normalization so the EQ shows what's actually heard.
+    source.connect(gain);
+    gain.connect(limiter);
+    limiter.connect(analyser);
     analyser.connect(ctx.destination);
+    gainRef.current = gain;
     audioCtxRef.current = ctx;
     analyserRef.current = analyser;
     sourceRef.current = source;
@@ -223,6 +238,8 @@ const CarStereoPlayer = ({ track, trackIndex, trackCount, onSeekNext, onSeekPrev
   const handlePlay = () => {
     if (!playable) return;
     ensureAudioGraph();
+    // Set on every play rather than once, since switching tracks always stops playback.
+    gainRef.current.gain.value = Math.pow(10, (track.gainDb ?? 0) / 20);
     if (audioCtxRef.current.state === "suspended") {
       audioCtxRef.current.resume();
     }

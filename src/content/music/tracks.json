@@ -6,6 +6,7 @@
     "date": "Spring 2025",
     "description": "Final project for my Computer Tools for Musicians class at Tufts. Produced in Digital Performer 11, featuring my vocals accompanied by synthesizers from Reason and MOTU.",
     "audioSrc": "/music_production/Petrichor.wav",
+    "gainDb": -4.1,
     "imageSrc": "/music_production/PetrichorImage.jpg",
     "color": "#7A5E3B",
     "links": []
@@ -17,6 +18,7 @@
     "date": "2023",
     "description": "The first track in my two-song Lofi single 'Thinking of Her', produced in Logic Pro X. This song started as a loop I made for my game design class for a game centered around cheese, but it found a new meaning when I completed it.",
     "audioSrc": "/music_production/ThinkingOfHer_Master.wav",
+    "gainDb": -2.0,
     "imageSrc": "/music_production/ThinkingOfHerAlbumCover.png",
     "color": "#5A3B7A",
     "links": [
@@ -30,6 +32,7 @@
     "date": "2023",
     "description": "The second half of my two-song Lofi single 'Thinking of Her', produced in Logic Pro X.",
     "audioSrc": "/music_production/CloseYourEyes.wav",
+    "gainDb": 5.1,
     "imageSrc": "/music_production/ThinkingOfHerAlbumCover.png",
     "color": "#3B5A7A",
     "links": [
@@ -58,6 +61,7 @@
     "date": "Fall 2024",
     "description": "Arranged for a 12-person TTBB a cappella group, appearing on the Tufts Beelzebubs EP 'School's Out', released December 2024.",
     "audioSrc": "/music_production/whats-new-scoob-track.mp3",
+    "gainDb": -6.1,
     "imageSrc": "/music_production/whats-new-scoob.jpg",
     "color": "#7A3B5E",
     "links": [
