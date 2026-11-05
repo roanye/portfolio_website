@@ -61,7 +61,7 @@ const Screw = ({ style }) => (
   />
 );
 
-const CarStereoPlayer = ({ track, trackIndex, trackCount, onSeekNext, onSeekPrev }) => {
+const CarStereoPlayer = ({ track, trackIndex, trackCount, onSeekNext, onSeekPrev, allDescriptions }) => {
   const audioRef = useRef(null);
   const audioCtxRef = useRef(null);
   const analyserRef = useRef(null);
@@ -512,10 +512,23 @@ const CarStereoPlayer = ({ track, trackIndex, trackCount, onSeekNext, onSeekPrev
       )}
 
       {/* Unit 4: description readout */}
-      <div className="rounded-sm p-3 md:p-4 max-h-28 md:max-h-36 overflow-y-auto" style={{ ...unitStyle, background: COLORS.screenBg }}>
-        <p className="font-mono text-[9px] md:text-xs leading-relaxed" style={{ color: COLORS.textDim }}>
-          {track.description}
-        </p>
+      {/* Every track's description is stacked in the same grid cell, with only the current
+          one visible, so the readout is always as tall as the longest description - long
+          text never scrolls, and seeking between tracks never shifts the page. */}
+      <div className="rounded-sm p-3 md:p-4 grid" style={{ ...unitStyle, background: COLORS.screenBg }}>
+        {(allDescriptions ?? [track.description]).map((description, i) => {
+          const current = allDescriptions ? i === trackIndex : true;
+          return (
+            <p
+              key={i}
+              className="font-mono text-[9px] md:text-xs leading-relaxed [grid-area:1/1]"
+              style={{ color: COLORS.textDim, visibility: current ? "visible" : "hidden" }}
+              aria-hidden={!current}
+            >
+              {description}
+            </p>
+          );
+        })}
       </div>
     </div>
   );

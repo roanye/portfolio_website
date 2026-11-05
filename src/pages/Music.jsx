@@ -50,6 +50,7 @@ export const Music = () => {
           trackCount={n}
           onSeekNext={() => seek("next")}
           onSeekPrev={() => seek("prev")}
+          allDescriptions={tracks.map((t) => t.description)}
         />
       </section>
     </div>
