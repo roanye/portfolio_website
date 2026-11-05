@@ -202,7 +202,10 @@ const CarStereoPlayer = ({ track, trackIndex, trackCount, onSeekNext, onSeekPrev
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
-    const onTimeUpdate = () => setCurrentTime(audio.currentTime);
+    // While scrubbing, the bar shows the drag position, so playback mustn't yank it back.
+    const onTimeUpdate = () => {
+      if (!isDraggingRef.current) setCurrentTime(audio.currentTime);
+    };
     const onLoadedMetadata = () => setDuration(audio.duration || 0);
     const onEnded = () => setIsPlaying(false);
     audio.addEventListener("timeupdate", onTimeUpdate);
@@ -233,36 +236,45 @@ const CarStereoPlayer = ({ track, trackIndex, trackCount, onSeekNext, onSeekPrev
     setIsPlaying(false);
   };
 
-  const seekToClientX = (clientX) => {
-    const bar = progressRef.current;
-    if (!playable || !duration || !bar) return;
-    const rect = bar.getBoundingClientRect();
+  const timeAtClientX = (clientX) => {
+    const rect = progressRef.current.getBoundingClientRect();
     const ratio = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
-    audioRef.current.currentTime = ratio * duration;
-    setCurrentTime(ratio * duration);
+    return ratio * duration;
   };
 
   // Pointer Events unify mouse and touch, so dragging the progress bar to scrub works
   // the same on desktop and mobile. setPointerCapture keeps receiving move events even
   // if the finger/cursor drifts outside the thin bar while dragging.
+  // Like Spotify, dragging only moves the bar/time readout - the audio keeps playing
+  // where it was and only jumps on release. Seeking on every move event is what made
+  // the audible clicking, since each seek restarts playback mid-waveform.
   const handleSeekPointerDown = (e) => {
-    if (!playable || !duration) return;
+    if (!playable || !duration || !progressRef.current) return;
     isDraggingRef.current = true;
     e.currentTarget.setPointerCapture(e.pointerId);
-    seekToClientX(e.clientX);
+    setCurrentTime(timeAtClientX(e.clientX));
   };
 
   const handleSeekPointerMove = (e) => {
     if (!isDraggingRef.current) return;
-    seekToClientX(e.clientX);
+    setCurrentTime(timeAtClientX(e.clientX));
   };
 
   const handleSeekPointerUp = (e) => {
     if (!isDraggingRef.current) return;
     isDraggingRef.current = false;
-    // Always resolve the final drop position here too, not just on move - some input
-    // pipelines coalesce or skip intermediate move events for a fast drag/tap-and-release.
-    seekToClientX(e.clientX);
+    // Resolve the drop position from the release event itself, not the last move - some
+    // input pipelines coalesce or skip intermediate move events for a fast drag/tap.
+    const time = timeAtClientX(e.clientX);
+    audioRef.current.currentTime = time;
+    setCurrentTime(time);
+  };
+
+  // A cancelled drag (e.g. the browser takes over the touch) never seeks, so snap the
+  // bar back to where playback actually is.
+  const handleSeekPointerCancel = () => {
+    isDraggingRef.current = false;
+    setCurrentTime(audioRef.current.currentTime);
   };
 
   const formatTime = (s) => {
@@ -364,7 +376,7 @@ const CarStereoPlayer = ({ track, trackIndex, trackCount, onSeekNext, onSeekPrev
             onPointerDown={handleSeekPointerDown}
             onPointerMove={handleSeekPointerMove}
             onPointerUp={handleSeekPointerUp}
-            onPointerCancel={() => (isDraggingRef.current = false)}
+            onPointerCancel={handleSeekPointerCancel}
           >
             <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-1.5 md:h-2 rounded-sm" style={{ background: "#1a1308" }}>
               <div
