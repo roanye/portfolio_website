@@ -180,7 +180,7 @@ const CarStereoPlayer = ({ track, trackIndex, trackCount, onSeekNext, onSeekPrev
     const levels = levelsRef.current;
     let anyAbove = false;
     for (let i = 0; i < BAR_COUNT; i++) {
-      levels[i] *= 0.88;
+      levels[i] *= 0.96;
       if (levels[i] < 0.5) {
         levels[i] = 0;
       } else {
