@@ -33,6 +33,15 @@ export const PoetryDetail = () => {
   }
 
   const stanzas = poem.body.split("\n\n");
+  const titleAtBottom = poem.titlePosition === "bottom";
+  const title = (
+    <h1
+      className="text-3xl md:text-5xl font-bold mb-2"
+      style={{ color: poem.color }}
+    >
+      {poem.title}
+    </h1>
+  );
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
@@ -50,12 +59,7 @@ export const PoetryDetail = () => {
           </Link>
 
           <article className="text-left">
-            <h1
-              className="text-3xl md:text-5xl font-bold mb-2"
-              style={{ color: poem.color }}
-            >
-              {poem.title}
-            </h1>
+            {!titleAtBottom && title}
             <p className="text-sm text-muted-foreground mb-10">{poem.date}</p>
 
             <div className="h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent mb-10" />
@@ -71,6 +75,7 @@ export const PoetryDetail = () => {
                 </div>
               ))}
             </div>
+            {titleAtBottom && <div className="mt-8">{title}</div>}
           </article>
         </div>
       </section>

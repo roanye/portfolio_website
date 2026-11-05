@@ -133,6 +133,12 @@ const JournalModal = ({ poem, onClose }) => {
     : { bg: "#f2ede0", text: "#2a1e14", muted: "rgba(80,60,40,0.45)", line: "rgba(100,85,60,0.09)" };
 
   const RULED = `repeating-linear-gradient(transparent 0px, transparent 27px, ${page.line} 27px, ${page.line} 28px)`;
+  const titleAtBottom = poem.titlePosition === "bottom";
+  const title = (
+    <h1 style={{ fontSize: 28, fontWeight: 700, color: poem.color, lineHeight: 1.25, marginBottom: 4, textAlign: "left" }}>
+      {poem.title}
+    </h1>
+  );
 
   return (
     <div
@@ -181,9 +187,7 @@ const JournalModal = ({ poem, onClose }) => {
 
         {/* Scrollable content */}
         <div style={{ overflowY: "auto", overflowX: "hidden", padding: "clamp(14px, 4vw, 44px)", paddingTop: 24, paddingBottom: 36 }}>
-          <h1 style={{ fontSize: 28, fontWeight: 700, color: poem.color, lineHeight: 1.25, marginBottom: 4, textAlign: "left" }}>
-            {poem.title}
-          </h1>
+          {!titleAtBottom && title}
           <p style={{ fontSize: 11, letterSpacing: "0.07em", color: page.muted, marginBottom: 12, textTransform: "uppercase", textAlign: "left" }}>
             {poem.date}
           </p>
@@ -200,6 +204,7 @@ const JournalModal = ({ poem, onClose }) => {
               </div>
             ))}
           </div>
+          {titleAtBottom && title}
         </div>
       </div>
     </div>
