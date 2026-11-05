@@ -106,6 +106,11 @@ const CarStereoPlayer = ({ track, trackIndex, trackCount, onSeekNext, onSeekPrev
     // log-scaled grouping below deliberately spends most of its resolution down there.
     analyser.fftSize = 2048;
     analyser.smoothingTimeConstant = 0.75;
+    // The default window (-100 to -30 dB) clamps anything louder than -30 dB to the top
+    // segment, so loud bass pinned the meter even with headroom left. Topping out at
+    // -20 dB leaves room for loud bands while keeping quieter ones visibly moving.
+    analyser.minDecibels = -90;
+    analyser.maxDecibels = -20;
     const source = ctx.createMediaElementSource(audioRef.current);
     source.connect(analyser);
     analyser.connect(ctx.destination);
@@ -118,12 +123,18 @@ const CarStereoPlayer = ({ track, trackIndex, trackCount, onSeekNext, onSeekPrev
     // hearing) is logarithmic - grouping bins into equal-width linear chunks dumps nearly
     // everything into the first couple of bars. Precompute log-scaled [start, end) bin
     // ranges per bar instead, like a real spectrum analyzer / graphic EQ.
+    // Pure log spacing rounds several low bars onto the same bin (so they'd move in
+    // lockstep), so each boundary is forced at least one bin past the previous one -
+    // every bar gets its own slice of the spectrum.
     const totalBins = analyser.frequencyBinCount;
+    const bounds = [1];
+    for (let i = 1; i <= BAR_COUNT; i++) {
+      const logBound = Math.floor(Math.pow(totalBins, i / BAR_COUNT));
+      bounds.push(Math.min(totalBins, Math.max(bounds[i - 1] + 1, logBound)));
+    }
     const ranges = [];
     for (let i = 0; i < BAR_COUNT; i++) {
-      const start = Math.max(1, Math.floor(Math.pow(totalBins, i / BAR_COUNT)));
-      const end = Math.max(start + 1, Math.floor(Math.pow(totalBins, (i + 1) / BAR_COUNT)));
-      ranges.push([start, Math.min(end, totalBins)]);
+      ranges.push([bounds[i], bounds[i + 1]]);
     }
     binRangesRef.current = ranges;
   }, []);
